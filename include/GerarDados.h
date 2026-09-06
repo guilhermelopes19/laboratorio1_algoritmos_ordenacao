@@ -2,6 +2,7 @@
 #define GERAR_DADOS_H
 
 #include <vector>
+#include <random>
 
 class GeradorDados
 {
