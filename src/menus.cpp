@@ -71,7 +71,19 @@ void menuGerarDados(vector<int>& listaDados) {
 }
 
 void menuExibirDados(vector<int>& listaDados) {
+    system("cls");
+    cout << "--- Exibir Dados ---\n";
+    
+    cout << "[";
+    for(int i = 0; i < listaDados.size(); i++) {
+        if(i != listaDados.size()-1) {
+            cout << listaDados[i] << ", ";
+        } else {
+            cout << listaDados[i] << "]" << endl;
+        }
+    }
 
+    system("pause");
 }
 
 void menuSelectionSort() {
