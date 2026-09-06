@@ -1,0 +1,24 @@
+# DIÁRIO DE ALTERAÇÕES
+
+## 06/09/2026
+
+### ATUALIZAÇÃO E INTEGRAÇÃO DAS BRANCHES — DIMITRIUS
+
+* Criei a branch `feature/parte-dimitrius` a partir da `main` atualizada e integrei as alterações das branches `guilherme-development` e `feature/parte_bruno`.
+
+* Durante o merge da branch do Bruno, houve conflito em `Ordenacao.h` e `Ordenacao.cpp`, pois esses arquivos haviam sido reorganizados pelo Guilherme.
+
+* Mantive a estrutura atual do projeto:
+
+  * `include/Ordenacao.h`
+  * `src/Ordenacao.cpp`
+
+* Incorporei nesses arquivos o código desenvolvido pelo Bruno.
+
+* Após resolver o conflito, finalizei o merge e enviei a branch `feature/parte-dimitrius` para o GitHub.
+
+### CRIAÇÃO DE BRANCH DE BACKUP — DIMITRIUS
+
+* Criei a branch `backup/integracao-bruno-guilherme` para preservar o estado do projeto após a integração das branches do Guilherme e do Bruno.
+
+* Mantive a `feature/parte-dimitrius` como branch de desenvolvimento para realizar as próximas correções e alterações.
