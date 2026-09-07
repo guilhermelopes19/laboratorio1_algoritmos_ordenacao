@@ -113,7 +113,17 @@ void menuInsertionSort(vector<int> listaDados) {
 }
 
 void menuShellSort(vector<int> listaDados) {
+    Estatisticas estShellSort;
     
+    system("cls");
+    cout << "--- Shell Sort ---\n";
+
+    Ordenacao::shellSort(listaDados, estShellSort);
+
+    printDados(listaDados);
+    printEstatisticas(estShellSort);
+    
+    system("pause");
 }
 
 void menuQuickSort(vector<int> listaDados) {
