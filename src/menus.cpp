@@ -5,7 +5,6 @@
 #include <Ordenacao.h>
 #include <iomanip>
 #include <string>
-//biblioteca necessária para faezr validação da opção digitada pelo usário (digitar caracteres ao invés de números)
 #include <limits>
 
 using namespace std;
@@ -23,14 +22,12 @@ void menuGerarDados(vector<int>& listaDados) {
          << "2. 10.000 elementos\n"
          << "3. 50.000 elementos\n"
          << "4. 100.000 elementos\n"
-         << "5. Informar outro tamanho\n" <<endl; 
+         << "5. Informar outro tamanho\n" << endl; 
 
     cout << "\nDigite o número da opção desejada: " << endl;
     cin >> opcao;
 
-    // Verifica se o usuario digitou um valor invalido, como uma letra
-    if(cin.fail()){
-        // Limpa o estado de erro do cin para permitir novas leituras
+    if(cin.fail()) {
         cin.clear();
         // Descarta a entrada invalida que ficou armazenada no buffer
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -38,9 +35,7 @@ void menuGerarDados(vector<int>& listaDados) {
         cout << "\nEntrada inválida! Digite apenas números\n" << endl;
         system("pause");
 
-        // Volta para o inicio do menu principal
         return;
-
     }
 
     switch(opcao) {
@@ -64,9 +59,7 @@ void menuGerarDados(vector<int>& listaDados) {
             cout << "\nDigite o tamanho do vetor:" <<endl;
             cin>> tamanho;
 
-            // Verifica se o usuario digitou um valor invalido, como uma letra
-            if(cin.fail()){
-                // Limpa o estado de erro do cin para permitir novas leituras
+            if(cin.fail()) {
                 cin.clear();
                 // Descarta a entrada invalida que ficou armazenada no buffer
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -74,13 +67,10 @@ void menuGerarDados(vector<int>& listaDados) {
                 cout << "\nEntrada inválida! Digite apenas números\n" << endl;
                 system("pause");
 
-                // Volta para o inicio do menu principal
                 return;
-
             }
             
-            if (tamanho <=0)
-            {
+            if(tamanho <= 0) {
                 cout << "\nTamanho do vetor inválido! Voltando ao Menu... \n"<<endl;;
                 system("pause");
                 return;
@@ -99,14 +89,12 @@ void menuGerarDados(vector<int>& listaDados) {
          << "1. Dados Aleatórios\n"
          << "2. Dados Ordenados\n"
          << "3. Dados Ordem Inversa\n"
-         << "4. Dados Parcialmente Ordenados\n" <<endl; 
+         << "4. Dados Parcialmente Ordenados\n" << endl; 
 
     cout << "\nDigite o numero da opção desejada: " <<endl;
     cin >> opcao;
 
-    // Verifica se o usuario digitou um valor invalido, como uma letra
-    if(cin.fail()){
-        // Limpa o estado de erro do cin para permitir novas leituras
+    if(cin.fail()) {
         cin.clear();
         // Descarta a entrada invalida que ficou armazenada no buffer
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -114,9 +102,7 @@ void menuGerarDados(vector<int>& listaDados) {
         cout << "\nEntrada inválida! Digite apenas números\n" << endl;
         system("pause");
 
-        // Volta para o inicio do menu principal
         return;
-
     }
 
     switch(opcao) {
@@ -335,10 +321,12 @@ void menuExecutarComparar(vector<int> listaDados) {
 
 void printDados(vector<int> listaDados) {
     cout << "[";
+
     if(listaDados.empty()) {
         cout << "Lista Vazia]" << endl;
         return;
     }
+    
     for(long long unsigned int i = 0; i < listaDados.size(); i++) {
         if(i != listaDados.size()-1) {
             cout << listaDados[i] << ", ";

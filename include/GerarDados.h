@@ -4,17 +4,16 @@
 #include <vector>
 #include <random>
 
-class GeradorDados
-{
-private:
-    inline static std::random_device rd;
-    inline static std::mt19937 gen{rd()};
+class GeradorDados {
+    private:
+        inline static std::random_device rd;
+        inline static std::mt19937 gen{rd()};
 
-public:
-    static std::vector<int> gerarAleatorio(int tamanho);
-    static std::vector<int> gerarOrdenado(int tamanho);
-    static std::vector<int> gerarInverso(int tamanho);
-    static std::vector<int> gerarParcialmenteOrdenado(int tamanho);
+    public:
+        static std::vector<int> gerarAleatorio(int tamanho);
+        static std::vector<int> gerarOrdenado(int tamanho);
+        static std::vector<int> gerarInverso(int tamanho);
+        static std::vector<int> gerarParcialmenteOrdenado(int tamanho);
 };
 
 #endif
