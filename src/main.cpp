@@ -1,3 +1,8 @@
+// LABORATÓRIO 1 —  ALGORITMOS DE ORDENAÇÃO
+// Disciplina: Estrutura de Daos 2
+// Professora: Inês
+// Alunos: Bruno Barreto, Dimitrius Khouri e Guilherme Lopes 
+
 #include <iostream>
 #include <cstdlib>
 #include <Estatisticas.h>
