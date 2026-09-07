@@ -17,10 +17,10 @@ void menuGerarDados(vector<int>& listaDados) {
     system("cls");
     cout << "--- Gerar Dados ---\n";
     cout << "Quantidade de dados desejada\n";
-    cout << "1. 1.000 elementos\n\
-2. 10.000 elementos\n\
-3. 50.000 elementos\n\
-4. 100.000 elementos\n";
+    cout << "1. 1.000 elementos\n"
+         << "2. 10.000 elementos\n"
+         << "3. 50.000 elementos\n"
+         << "4. 100.000 elementos\n";
 
     cout << "Digite o numero da opcao desejada: " <<endl;
     cin >> opcao;
@@ -45,11 +45,11 @@ void menuGerarDados(vector<int>& listaDados) {
     }
 
     system("cls");
-    cout << "--- Gerar Dados ---\n\
-1. Dados Aleatorios\n\
-2. Dados Ordenados\n\
-3. Dados Ordem Inversa\n\
-4. Dados Parcialmente Ordenados\n";
+    cout << "--- Gerar Dados ---\n"
+         << "1. Dados Aleatorios\n"
+         << "2. Dados Ordenados\n"
+         << "3. Dados Ordem Inversa\n"
+         << "4. Dados Parcialmente Ordenados\n";
 
     cout << "Digite o numero da opcao desejada: " <<endl;
     cin >> opcao;

@@ -17,17 +17,17 @@ int main() {
 
     do {
         system("cls");
-
-        cout << "--- Bem vindo a Ordenacao ---\n\
-1.  Gerar um conjunto de dados; \n\
-2.  Exibir os dados gerados;\n\
-3.  Ordenar utilizando Selection Sort;\n\
-4.  Ordenar utilizando Insertion Sort;\n\
-5.  Ordenar utilizando Shell Sort;\n\
-6.  Ordenar utilizando Quick Sort;\n\
-7.  Ordenar utilizando Heap Sort;\n\
-8.  Executar e comparar todos os algoritmos;\n\
-9.  Encerrar o programa\n"<< endl;
+        cout << "--- Bem vindo a Ordenacao ---\n"
+             << "1.  Gerar um conjunto de dados\n"
+             << "2.  Exibir os dados gerados\n"
+             << "3.  Ordenar utilizando Selection Sort\n"
+             << "4.  Ordenar utilizando Insertion Sort\n"
+             << "5.  Ordenar utilizando Shell Sort\n" 
+             << "6.  Ordenar utilizando Quick Sort\n" 
+             << "7.  Ordenar utilizando Heap Sort\n"
+             << "8.  Executar e comparar todos os algoritmos\n"
+             << "9.  Encerrar o programa\n" 
+             << endl;
 
         cout << "Digite o numero da opcao desejada: " <<endl;
         cin >> opcao;
@@ -67,7 +67,5 @@ int main() {
 
     } while(opcao!=9);
 
-
      cout << "Tchau! " <<endl;
-
 }
