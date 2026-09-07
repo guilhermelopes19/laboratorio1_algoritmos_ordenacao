@@ -174,6 +174,85 @@ void Ordenacao::insertionSort(std::vector<int>& A, Estatisticas& est)
         ((double)(fim - inicio)) / CLOCKS_PER_SEC;
 }
 
+// ATENÇÃO - APAGAR DEPOIS!!!!
+// Utilizei como referência o código do livro Projeto de Algoritmos,
+// de Nívio Ziviani, e o PDF disponibilizado pela professora.
+// Adaptei o algoritmo para receber vector<int> e utilizar a classe Ordenacao.
+void Ordenacao::shellSort(std::vector<int>& A, Estatisticas& est)
+{
+    clock_t inicio = clock();
+
+    int n = A.size();
+    int h = 1;
+
+    est.comparacoes = 0;
+    est.movimentacoes = 0;
+
+    // Evita problemas caso o vector tenha zero ou apenas um elemento.
+    if (n <= 1)
+    {
+        clock_t fim = clock();
+
+        est.tempoExecucao =
+            ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+
+        return;
+    }
+
+    // h representa o intervalo entre os elementos comparados.
+    // Calcula inicialmente o maior intervalo da sequência:
+    // 1, 4, 13, 40, 121...
+    while (h < n)
+    {
+        // Mantida a sequência 3h + 1 apresentada no material da professora.
+        h = h * 3 + 1;
+    }
+
+    // Vai diminuindo os intervalos até chegar em 1.
+    do
+    {
+        h /= 3;
+
+        // Começa a percorrer o vector a partir da posição h.
+        for (int i = h; i < n; i++)
+        {
+            int x = A[i];
+            est.movimentacoes++;
+
+            int j = i;
+
+            // Compara o elemento atual com elementos
+            // que estão separados pelo intervalo h.
+            while (j >= h)
+            {
+                est.comparacoes++;
+
+                if (A[j - h] > x)
+                {
+                    A[j] = A[j - h];
+                    est.movimentacoes++;
+
+                    j -= h;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            A[j] = x;
+            est.movimentacoes++;
+        }
+
+    } while (h != 1);
+
+    clock_t fim = clock();
+
+    est.tempoExecucao =
+        ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+}
+
+
 
 
 

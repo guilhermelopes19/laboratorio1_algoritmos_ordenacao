@@ -15,14 +15,11 @@
 * Criei a branch `backup/integracao-bruno-guilherme` para preservar o estado do projeto após a integração das branches do Guilherme e do Bruno.
 * Mantive a `feature/parte-dimitrius` como branch de desenvolvimento para realizar as próximas correções e alterações.
 
-### ADAPTAÇÃO DOS ALGORITMOS SELECTION SORT E INSERTION SORT — DIMITRIUS
-* Adaptei os algoritmos Selection Sort e Insertion Sort, anteriormente integrados ao projeto, para trabalharem diretamente com `std::vector<int>`, mantendo o padrão utilizado na geração e no armazenamento dos dados.
-* No Selection Sort, alterei a implementação que utilizava `Item*`, `Indice` e acesso ao campo `Chave` para utilizar diretamente os valores armazenados no `vector<int>`.
-* Ajustei os índices do Selection Sort para o padrão do `vector`, iniciando na posição `0`, e mantive o registro de comparações, movimentações e tempo de execução através da estrutura `Estatisticas`.
-* No Insertion Sort, também adaptei a implementação para `vector<int>` e removi o uso da posição `A[0]` como sentinela, pois no `vector` a posição `0` corresponde a um elemento válido dos dados.
-* Para substituir a sentinela, foi adicionada a verificação do limite do índice durante o deslocamento dos elementos, evitando acesso a posições negativas do `vector`.
-* Mantive como critério de comparações a contagem das comparações entre os valores do vetor e como movimentações as atribuições realizadas durante o processo de ordenação.
-* Realizei testes com vetores pequenos para validar os algoritmos e conferir as estatísticas geradas.
-* O Selection Sort foi testado com o vetor `{5, 2, 4, 1, 3}`, resultando em `{1, 2, 3, 4, 5}`, com 10 comparações e 12 movimentações.
-* O Insertion Sort foi testado com dados aleatórios, ordenados e inversamente ordenados. Os resultados confirmaram a ordenação correta e a contabilização das comparações e movimentações conforme o critério adotado.
-* O projeto foi compilado após as alterações. Permaneceram apenas avisos de comparação entre tipos diferentes em `menus.cpp`, que serão tratados posteriormente.
+### IMPLEMENTAÇÃO E ADAPTAÇÃO DO SHELL SORT — DIMITRIUS
+* Implementei o algoritmo Shell Sort na classe `Ordenacao`, utilizando como referência o código apresentado no slide da professora e a implementação apresentada no livro *Projeto de Algoritmos*, de Nívio Ziviani.
+* Mantive a sequência de incrementos apresentada no material, calculada pela expressão `h = h * 3 + 1`, gerando intervalos como `1, 4, 13, 40, ...`, que posteriormente são reduzidos pela divisão de `h` por `3`.
+* O código do slide utiliza `Item *A`, o tipo `Indice`, o campo `Chave` e indexação baseada nas posições de `1` até `n`. Como o projeto foi padronizado para utilizar `std::vector<int>`, adaptei a implementação para trabalhar diretamente com valores inteiros e com índices de `0` até `n - 1`.
+* Durante a análise do código apresentado no slide, foi identificado um possível erro no deslocamento do índice `j`. O trecho apresentado utiliza `j = i - h` dentro do `while`. Como `i` permanece constante durante esse laço, essa atribuição pode fazer `j` retornar sempre à mesma posição quando forem necessários vários deslocamentos. Na implementação adaptada foi utilizado o recuo progressivo `j -= h`, permitindo que o índice percorra corretamente as posições anteriores de acordo com o intervalo atual.
+* A condição `while (h != 1)` apresentada no slide foi analisada e não foi considerada um erro para o fluxo normal do algoritmo, pois o corpo do `do-while` é executado com `h = 1` antes da verificação da condição. Para evitar problemas em vetores com tamanho `0` ou `1`, foi incluído um tratamento específico antes da execução do laço principal.
+* Adicionei ao Shell Sort o registro de comparações e movimentações por meio da estrutura `Estatisticas`, seguindo o mesmo critério utilizado no Selection Sort e no Insertion Sort. Também foi adicionada a medição do tempo de execução utilizando `clock()` e `CLOCKS_PER_SEC`.
+* O algoritmo foi validado com vetores misto, ordenado e inversamente ordenado. Para `{8, 5, 3, 7, 6, 2, 1, 4}`, foram registradas 20 comparações e 37 movimentações; para `{1, 2, 3, 4, 5, 6, 7, 8}`, 11 comparações e 22 movimentações; e para `{8, 7, 6, 5, 4, 3, 2, 1}`, 20 comparações e 38 movimentações. Nos três testes o vetor foi ordenado corretamente.
