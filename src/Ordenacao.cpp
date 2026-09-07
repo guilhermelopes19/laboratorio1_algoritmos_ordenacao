@@ -252,7 +252,156 @@ void Ordenacao::shellSort(std::vector<int>& A, Estatisticas& est)
         ((double)(fim - inicio)) / CLOCKS_PER_SEC;
 }
 
+// ATENÇÃO - APAGAR DEPOIS!!!!
+// Função auxiliar recursiva utilizada pelo Quick Sort.
+// Foi adaptada do código da professora para utilizar vector<int>
+// e trabalhar com a classe Ordenacao.
+void Ordenacao::ordena(
+    int esq,
+    int dir,
+    std::vector<int>& A,
+    Estatisticas& est
+)
+{
+    // ATENÇÃO - APAGAR DEPOIS!!!!
+    // As variáveis i e j serão alteradas pela função particao
+    // e indicam os limites das próximas partes que serão ordenadas.
+    int i;
+    int j;
 
+    // Divide o trecho atual do vector em duas partes,
+    // posicionando os elementos em relação ao pivô.
+    particao(esq, dir, i, j, A, est);
+
+    // ATENÇÃO - APAGAR DEPOIS!!!!
+    // Se ainda existir uma parte à esquerda para ordenar,
+    // chama novamente a própria função.
+    if (esq < j)
+    {
+        ordena(esq, j, A, est);
+    }
+
+    // ATENÇÃO - APAGAR DEPOIS!!!!
+    // Se ainda existir uma parte à direita para ordenar,
+    // chama novamente a própria função.
+    if (i < dir)
+    {
+        ordena(i, dir, A, est);
+    }
+}
+
+// ATENÇÃO - APAGAR DEPOIS!!!!
+// Função principal do Quick Sort.
+// Ela prepara as estatísticas, controla o tempo de execução
+// e inicia a chamada da função recursiva ordena.
+void Ordenacao::quickSort(
+    std::vector<int>& A,
+    Estatisticas& est
+)
+{
+    clock_t inicio = clock();
+
+    // ATENÇÃO - APAGAR DEPOIS!!!!
+    // Guardamos o tamanho do vector em uma variável int,
+    // seguindo o mesmo padrão utilizado nos outros algoritmos.
+    int n = A.size();
+
+    // Reinicia as estatísticas antes de começar a ordenação.
+    est.comparacoes = 0;
+    est.movimentacoes = 0;
+
+    // ATENÇÃO - APAGAR DEPOIS!!!!
+    // O Quick Sort só precisa ser executado se houver
+    // mais de um elemento no vector.
+    //
+    // Como o vector começa na posição 0,
+    // o primeiro índice é 0 e o último é n - 1.
+    if (n > 1)
+    {
+        ordena(0, n - 1, A, est);
+    }
+
+    clock_t fim = clock();
+
+    // Calcula o tempo total de execução do Quick Sort em segundos.
+    // O tempo é medido apenas aqui, e não dentro da função recursiva,
+    // para não reiniciar a medição em cada chamada.
+    est.tempoExecucao =
+        ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+}
+
+// ATENÇÃO - APAGAR DEPOIS!!!!
+// Adaptado do código de Quick Sort apresentado pela professora.
+// O código original utilizava Item, Indice e ponteiros.
+// Foi adaptado para vector<int>, referências e a classe Ordenacao.
+void Ordenacao::particao(
+    int esq,
+    int dir,
+    int& i,
+    int& j,
+    std::vector<int>& A,
+    Estatisticas& est
+)
+{
+    int aux;
+
+    i = esq;
+    j = dir;
+
+    // Obtém como pivô o elemento central do trecho atual.
+    int pivo = A[(i + j) / 2];
+    est.movimentacoes++;
+
+    do
+    {
+        // Procura, da esquerda para a direita,
+        // um elemento que seja maior ou igual ao pivô.
+        while (i <= dir)
+        {
+            est.comparacoes++;
+
+            if (A[i] < pivo)
+            {
+                i++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        // Procura, da direita para a esquerda,
+        // um elemento que seja menor ou igual ao pivô.
+        while (j >= esq)
+        {
+            est.comparacoes++;
+
+            if (A[j] > pivo)
+            {
+                j--;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        // Caso os índices ainda não tenham se cruzado,
+        // troca os elementos encontrados.
+        if (i <= j)
+        {
+            aux = A[i];
+            A[i] = A[j];
+            A[j] = aux;
+
+            est.movimentacoes += 3;
+
+            i++;
+            j--;
+        }
+
+    } while (i <= j);
+}
 
 
 

@@ -10,12 +10,22 @@
 
 class Ordenacao
 {
+        private:
+        // Função auxiliar utilizada pelo Quick Sort para dividir
+        // o vector em torno de um pivô.
+        static void particao( int esq, int dir, int& i, int& j, std::vector<int>& A, Estatisticas& est );
+
+        // Função auxiliar recursiva utilizada pelo Quick Sort.
+        static void ordena( int esq, int dir, std::vector<int>& A, Estatisticas& est );
+
+
     public:
         // O método é static porque pertence à classe e não precisa de um objeto específico.
         // O '&' passa o vetor por referência, evitando criar uma cópia desnecessária.
         static void selectionSort(std::vector<int>& dados, Estatisticas& est);
         static void insertionSort(std::vector<int>& dados, Estatisticas& est);
         static void shellSort(std::vector<int>& dados, Estatisticas& est);
+        static void quickSort(std::vector<int>& dados, Estatisticas& est);
 };
 
 #endif
