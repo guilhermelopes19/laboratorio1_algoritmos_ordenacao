@@ -256,12 +256,7 @@ void Ordenacao::shellSort(std::vector<int>& A, Estatisticas& est)
 // Função auxiliar recursiva utilizada pelo Quick Sort.
 // Foi adaptada do código da professora para utilizar vector<int>
 // e trabalhar com a classe Ordenacao.
-void Ordenacao::ordena(
-    int esq,
-    int dir,
-    std::vector<int>& A,
-    Estatisticas& est
-)
+void Ordenacao::ordena( int esq, int dir, std::vector<int>& A, Estatisticas& est)
 {
     // ATENÇÃO - APAGAR DEPOIS!!!!
     // As variáveis i e j serão alteradas pela função particao
@@ -294,10 +289,7 @@ void Ordenacao::ordena(
 // Função principal do Quick Sort.
 // Ela prepara as estatísticas, controla o tempo de execução
 // e inicia a chamada da função recursiva ordena.
-void Ordenacao::quickSort(
-    std::vector<int>& A,
-    Estatisticas& est
-)
+void Ordenacao::quickSort( std::vector<int>& A, Estatisticas& est )
 {
     clock_t inicio = clock();
 
@@ -334,14 +326,7 @@ void Ordenacao::quickSort(
 // Adaptado do código de Quick Sort apresentado pela professora.
 // O código original utilizava Item, Indice e ponteiros.
 // Foi adaptado para vector<int>, referências e a classe Ordenacao.
-void Ordenacao::particao(
-    int esq,
-    int dir,
-    int& i,
-    int& j,
-    std::vector<int>& A,
-    Estatisticas& est
-)
+void Ordenacao::particao( int esq, int dir, int& i, int& j, std::vector<int>& A, Estatisticas& est )
 {
     int aux;
 
@@ -403,7 +388,151 @@ void Ordenacao::particao(
     } while (i <= j);
 }
 
+// ATENÇÃO - APAGAR DEPOIS!!!!
+// Utilizei como referência o código de Heap Sort apresentado pela professora.
+// O código original utiliza Item, Indice e começa os índices na posição 1.
+// Adaptei para receber vector<int>, trabalhar com índices iniciando em 0
+// e utilizar a classe Ordenacao.
+// Essa função reorganiza uma parte do vector para manter a propriedade do heap.
+// No heap máximo, o pai precisa ser maior ou igual aos seus filhos.
+void Ordenacao::refaz( int esq, int dir, std::vector<int>& A, Estatisticas& est )
+{
+    int i = esq;
+    int j;
+    int x;
 
+    // No código da professora, como os índices começam em 1,
+    // o filho esquerdo é calculado com i * 2.
+    // Como no vector os índices começam em 0,
+    // o filho esquerdo passa a ser 2 * i + 1.
+    j = i * 2 + 1;
+
+    // Guarda o valor atual para depois colocá-lo
+    // na posição correta dentro do heap.
+    x = A[i];
+    est.movimentacoes++;
+
+    // Continua enquanto existir um filho dentro
+    // da parte do vector que ainda pertence ao heap.
+    while (j <= dir)
+    {
+        // Se j < dir, significa que também existe um filho direito.
+        if (j < dir)
+        {
+            // Conta a comparação entre os dois filhos.
+            est.comparacoes++;
+
+            // Se o filho direito for maior,
+            // j passa a apontar para ele.
+            if (A[j] < A[j + 1])
+            {
+                j++;
+            }
+        }
+
+        // Compara o valor que está sendo reposicionado
+        // com o maior dos filhos.
+        est.comparacoes++;
+
+        // Se x já for maior ou igual ao maior filho,
+        // ele já está em uma posição válida no heap.
+        if (x >= A[j])
+        {
+            break;
+        }
+
+        // Caso contrário, o maior filho sobe
+        // para a posição atual.
+        A[i] = A[j];
+        est.movimentacoes++;
+
+        // Agora continuamos analisando a partir
+        // da posição para onde descemos.
+        i = j;
+
+        // Calcula novamente o filho esquerdo.
+        j = i * 2 + 1;
+    }
+
+    // Coloca x na posição correta encontrada.
+    A[i] = x;
+    est.movimentacoes++;
+}
+
+// Essa função percorre os elementos que podem possuir filhos
+// e utiliza refaz para montar o heap máximo.
+void Ordenacao::constroi( std::vector<int>& A, int n, Estatisticas& est)
+{
+    // No vector, o último elemento que pode possuir filhos
+    // está na posição n / 2 - 1.
+    //
+    // Exemplo com 8 elementos:
+    // índices: 0 1 2 3 4 5 6 7
+    // a posição 3 é o último índice que ainda pode ter filhos.
+    for (int esq = n / 2 - 1; esq >= 0; esq--)
+    {
+        // n - 1 representa a última posição válida do vector.
+        refaz(esq, n - 1, A, est);
+    }
+}
+
+// ATENÇÃO - APAGAR DEPOIS!!!!
+// O Heap Sort primeiro transforma o vector em um heap máximo.
+// Depois, troca o maior elemento, que está na raiz,
+// com o último elemento da parte ainda não ordenada.
+void Ordenacao::heapSort( std::vector<int>& A, Estatisticas& est )
+{
+    clock_t inicio = clock();
+
+    int n = A.size();
+
+    est.comparacoes = 0;
+    est.movimentacoes = 0;
+
+    // Só precisa ordenar se existir mais de um elemento.
+    if (n > 1)
+    {
+        // Primeiro constrói o heap máximo.
+        // Depois dessa etapa, o maior valor estará na posição 0.
+        constroi(A, n, est);
+
+        // Como o vector começa em 0,
+        // a raiz do heap fica na posição 0.
+        int esq = 0;
+
+        // dir representa a última posição
+        // que ainda pertence ao heap.
+        int dir = n - 1;
+
+        // A cada repetição, o maior valor é colocado
+        // no final da parte ainda não ordenada.
+        while (dir > 0)
+        {
+            // Troca a raiz, que contém o maior valor,
+            // com o último elemento do heap.
+            int x = A[0];
+            A[0] = A[dir];
+            A[dir] = x;
+
+            // A troca utiliza três atribuições.
+            est.movimentacoes += 3;
+
+            // O elemento colocado em A[dir] já está
+            // na sua posição definitiva.
+            // Por isso, diminuímos o tamanho do heap.
+            dir--;
+
+            // Como a raiz recebeu outro valor,
+            // precisamos restaurar a propriedade do heap.
+            refaz(esq, dir, A, est);
+        }
+    }
+
+    clock_t fim = clock();
+
+    est.tempoExecucao =
+        ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+}
 
 // ATENÇÃO - APAGAR DEPOIS!!!! 
 //CÓDIGO ANTIGO. SE CONCORDAREM COM ALTERAÇÃO QUE FIZ, APAGUEM ESSE COMENTÁRIO 
