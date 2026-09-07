@@ -127,7 +127,17 @@ void menuShellSort(vector<int> listaDados) {
 }
 
 void menuQuickSort(vector<int> listaDados) {
+    Estatisticas estQuickSort;
+    
+    system("cls");
+    cout << "--- Quick Sort ---\n";
 
+    Ordenacao::quickSort(listaDados, estQuickSort);
+
+    printDados(listaDados);
+    printEstatisticas(estQuickSort);
+    
+    system("pause");
 }
 
 void menuHeapSort(vector<int> listaDados) {
