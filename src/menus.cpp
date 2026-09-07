@@ -89,8 +89,6 @@ void menuSelectionSort(vector<int> listaDados) {
     
     system("cls");
     cout << "--- Selection Sort ---\n";
-    
-    
 
     Ordenacao::selectionSort(listaDados, estSelectionSort);
 
@@ -101,11 +99,21 @@ void menuSelectionSort(vector<int> listaDados) {
 }
 
 void menuInsertionSort(vector<int> listaDados) {
+    Estatisticas estInsertionSort;
+    
+    system("cls");
+    cout << "--- Insertion Sort ---\n";
 
+    Ordenacao::insertionSort(listaDados, estInsertionSort);
+
+    printDados(listaDados);
+    printEstatisticas(estInsertionSort);
+    
+    system("pause");
 }
 
 void menuShellSort(vector<int> listaDados) {
-
+    
 }
 
 void menuQuickSort(vector<int> listaDados) {
