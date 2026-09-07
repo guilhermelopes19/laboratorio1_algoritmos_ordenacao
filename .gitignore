@@ -4,3 +4,6 @@ obj/
 *.depend
 *.layout
 .vscode/
+build/
+CMakeLists.txt
+*.exe

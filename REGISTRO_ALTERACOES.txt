@@ -1,0 +1,97 @@
+# DIÁRIO DE ALTERAÇÕES
+
+## 07/09/2026
+
+### ATUALIZAÇÃO DA LÓGICA E SAÍDAS DO MENU — GUILHERME
+
+* Corrigi um erro lógico na função `menuExecutarComparar` em `src/menus.cpp`, onde todos os algoritmos alteravam o mesmo `vector` original. Criei cópias independentes dos dados (`listaSelection`, `listaInsertion`, `listaShell`, `listaQuick`, `listaHeap`) para garantir que cada algoritmo receba o vetor no estado original para uma comparação precisa.
+* Modifiquei a formatação das mensagens de texto em `src/main.cpp` e `src/menus.cpp`, substituindo o uso de barras de escape `\n\` por operadores de inserção `<<` encadeados, melhorando a indentação e legibilidade do código-fonte.
+* Inseri a mensagem temporária `\r[Aguarde, executando algoritmo...]` combinada com `flush` em todos os menus de ordenação e na tabela de comparação para exibir o progresso do processamento.
+* Refinei a limpeza do console após a execução das ordenações, utilizando `\r` com `setw(50)` para sobrescrever completamente a mensagem de aguarde antes de imprimir os dados ordenados.
+
+## 06/09/2026
+
+### ATUALIZAÇÃO E INTEGRAÇÃO DAS BRANCHES — DIMITRIUS
+* Criei a branch `feature/parte-dimitrius` a partir da `main` atualizada e integrei as alterações das branches `guilherme-development` e `feature/parte_bruno`.
+* Durante o merge da branch do Bruno, houve conflito em `Ordenacao.h` e `Ordenacao.cpp`, pois esses arquivos haviam sido reorganizados pelo Guilherme.
+* Mantive a estrutura atual do projeto:
+  * `include/Ordenacao.h`
+  * `src/Ordenacao.cpp`
+* Incorporei nesses arquivos o código desenvolvido pelo Bruno.
+* Após resolver o conflito, finalizei o merge e enviei a branch `feature/parte-dimitrius` para o GitHub.
+
+### CRIAÇÃO DE BRANCH DE BACKUP — DIMITRIUS
+* Criei a branch `backup/integracao-bruno-guilherme` para preservar o estado do projeto após a integração das branches do Guilherme e do Bruno.
+* Mantive a `feature/parte-dimitrius` como branch de desenvolvimento para realizar as próximas correções e alterações.
+
+### IMPLEMENTAÇÃO E ADAPTAÇÃO DO SHELL SORT — DIMITRIUS
+* Implementei o algoritmo Shell Sort na classe `Ordenacao`, utilizando como referência o código apresentado no slide da professora e a implementação apresentada no livro *Projeto de Algoritmos*, de Nívio Ziviani.
+* Mantive a sequência de incrementos apresentada no material, calculada pela expressão `h = h * 3 + 1`, gerando intervalos como `1, 4, 13, 40, ...`, que posteriormente são reduzidos pela divisão de `h` por `3`.
+* O código do slide utiliza `Item *A`, o tipo `Indice`, o campo `Chave` e indexação baseada nas posições de `1` até `n`. Como o projeto foi padronizado para utilizar `std::vector<int>`, adaptei a implementação para trabalhar diretamente com valores inteiros e com índices de `0` até `n - 1`.
+* Durante a análise do código apresentado no slide, foi identificado um possível erro no deslocamento do índice `j`. O trecho apresentado utiliza `j = i - h` dentro do `while`. Como `i` permanece constante durante esse laço, essa atribuição pode fazer `j` retornar sempre à mesma posição quando forem necessários vários deslocamentos. Na implementação adaptada foi utilizado o recuo progressivo `j -= h`, permitindo que o índice percorra corretamente as posições anteriores de acordo com o intervalo atual.
+* A condição `while (h != 1)` apresentada no slide foi analisada e não foi considerada um erro para o fluxo normal do algoritmo, pois o corpo do `do-while` é executado com `h = 1` antes da verificação da condição. Para evitar problemas em vetores com tamanho `0` ou `1`, foi incluído um tratamento específico antes da execução do laço principal.
+* Adicionei ao Shell Sort o registro de comparações e movimentações por meio da estrutura `Estatisticas`, seguindo o mesmo critério utilizado no Selection Sort e no Insertion Sort. Também foi adicionada a medição do tempo de execução utilizando `clock()` e `CLOCKS_PER_SEC`.
+* O algoritmo foi validado com vetores misto, ordenado e inversamente ordenado. Para `{8, 5, 3, 7, 6, 2, 1, 4}`, foram registradas 20 comparações e 37 movimentações; para `{1, 2, 3, 4, 5, 6, 7, 8}`, 11 comparações e 22 movimentações; e para `{8, 7, 6, 5, 4, 3, 2, 1}`, 20 comparações e 38 movimentações. Nos três testes o vetor foi ordenado corretamente.
+
+### IMPLEMENTAÇÃO E ADAPTAÇÃO DO QUICK SORT — DIMITRIUS
+
+* Implementei o algoritmo Quick Sort na classe `Ordenacao`, utilizando como referência o código apresentado no material da professora.
+* Mantive a estrutura principal do algoritmo apresentado no material, composta por uma função de partição, uma função auxiliar recursiva de ordenação e uma função principal para iniciar o Quick Sort.
+* O código original utilizava `Item *A`, o tipo `Indice`, acesso ao campo `Chave` e indexação baseada nas posições de `1` até `n`. Como o projeto foi padronizado para utilizar `std::vector<int>`, adaptei a implementação para trabalhar diretamente com valores inteiros e índices de `0` até `n - 1`.
+* Mantive a escolha do pivô a partir do elemento localizado no meio do trecho que está sendo particionado, conforme apresentado no código da professora.
+* Adaptei os parâmetros utilizados pela função de partição. No código original, os índices `i` e `j` eram alterados através de ponteiros; na implementação em C++, utilizei passagem por referência (`int&`), permitindo que a função altere esses índices sem a necessidade de manipulação explícita de ponteiros.
+* As funções auxiliares `particao` e `ordena` foram declaradas como métodos estáticos privados da classe `Ordenacao`, pois são utilizadas internamente pelo Quick Sort e não precisam ser chamadas diretamente pelas demais partes do programa.
+* A função `ordena` preserva o funcionamento recursivo do algoritmo, realizando novas chamadas para as partes esquerda e direita produzidas pela partição enquanto ainda existirem trechos que necessitem ser ordenados.
+* Adicionei o registro das comparações e movimentações utilizando a estrutura `Estatisticas`. Foram consideradas comparações as verificações realizadas entre os valores do vetor e o pivô. As verificações envolvendo somente índices e controle dos laços não foram contabilizadas como comparações entre chaves.
+* Para as movimentações, foram contabilizadas as atribuições de valores utilizadas durante a escolha do pivô e as trocas realizadas durante a partição. Cada troca entre dois elementos é contabilizada como três movimentações, devido ao uso de uma variável auxiliar.
+* A medição do tempo foi realizada somente na função pública `quickSort`, utilizando `clock()` e `CLOCKS_PER_SEC`. Dessa forma, o cronômetro não é reiniciado durante cada chamada recursiva das funções auxiliares.
+* Também foi incluída uma verificação para executar a ordenação somente quando o vetor possuir mais de um elemento, evitando chamadas desnecessárias da função recursiva para vetores vazios ou com apenas um valor.
+* O algoritmo foi validado com vetores misto, ordenado e inversamente ordenado. Para `{5, 2, 8, 1, 7, 3, 6, 4}`, foram registradas 37 comparações e 31 movimentações; para `{1, 2, 3, 4, 5, 6, 7, 8}`, 21 comparações e 16 movimentações; e para `{8, 7, 6, 5, 4, 3, 2, 1}`, 24 comparações e 29 movimentações. Nos três testes o vetor foi ordenado corretamente.
+* Após a implementação e os testes do Quick Sort, o projeto continuou compilando sem erros. Permaneceram apenas os avisos já existentes em `menus.cpp` relacionados à comparação entre tipos `int` e `std::vector<int>::size_type`, que serão tratados posteriormente.
+
+### IMPLEMENTAÇÃO E ADAPTAÇÃO DO HEAP SORT — DIMITRIUS
+* Implementei o algoritmo Heap Sort na classe `Ordenacao`, utilizando como referência o código apresentado no material da professora.
+* Mantive a estrutura principal do algoritmo apresentado no material, composta pelas funções auxiliares `Refaz` e `Constroi` e pela função principal responsável pela execução do Heap Sort.
+* O código original utilizava `Item *A`, o tipo `Indice`, acesso ao campo `Chave` e indexação baseada nas posições de `1` até `n`. Como o projeto utiliza `std::vector<int>`, adaptei a implementação para trabalhar diretamente com valores inteiros e índices de `0` até `n - 1`.
+* Devido à mudança da indexação, foi necessário adaptar o cálculo da posição dos filhos de cada elemento do heap. No código original, com índices iniciando em `1`, o filho esquerdo é calculado por `i * 2`. Na implementação com `vector`, o filho esquerdo passou a ser calculado por `2 * i + 1`, enquanto o filho direito corresponde à posição `2 * i + 2`.
+* A função auxiliar `refaz` foi adaptada para restaurar a propriedade de heap máximo. Durante esse processo, o algoritmo identifica o maior filho do elemento analisado e realiza os deslocamentos necessários até encontrar a posição adequada para o valor armazenado temporariamente.
+* A função `constroi` foi adaptada para iniciar pelo último elemento do vetor que ainda pode possuir filhos, localizado na posição `n / 2 - 1`, percorrendo os elementos até a raiz e utilizando `refaz` para construir o heap máximo.
+* As funções auxiliares `refaz` e `constroi` foram declaradas como métodos estáticos privados da classe `Ordenacao`, pois são utilizadas internamente pelo Heap Sort e não precisam ser acessadas diretamente pelas demais partes do programa.
+* Na função principal `heapSort`, após a construção do heap máximo, o elemento localizado na raiz é trocado com o último elemento da região ainda pertencente ao heap. Em seguida, o limite dessa região é reduzido e a função `refaz` é chamada novamente para restaurar a propriedade do heap. O processo continua até que todos os elementos estejam ordenados.
+* Adicionei o registro das comparações e movimentações utilizando a estrutura `Estatisticas`, mantendo o mesmo critério adotado nos algoritmos anteriores. Foram contabilizadas como comparações as verificações realizadas entre valores utilizados na ordenação, sem contabilizar verificações envolvendo apenas índices e condições de controle dos laços.
+* Para as movimentações, foram contabilizadas as atribuições de valores durante o processo de reconstrução do heap e as trocas entre a raiz e o último elemento da região ainda não ordenada. Cada troca realizada com uma variável auxiliar é contabilizada como três movimentações.
+* A medição do tempo de execução foi realizada na função pública `heapSort`, utilizando `clock()` e `CLOCKS_PER_SEC`.
+* Também foi adicionada uma verificação para executar a construção e ordenação do heap somente quando o vetor possuir mais de um elemento, evitando processamento desnecessário em vetores vazios ou com apenas um valor.
+* O algoritmo foi validado com vetores misto, ordenado e inversamente ordenado. Para `{5, 2, 8, 1, 7, 3, 6, 4}`, foram registradas 24 comparações e 54 movimentações; para `{1, 2, 3, 4, 5, 6, 7, 8}`, 27 comparações e 58 movimentações; e para `{8, 7, 6, 5, 4, 3, 2, 1}`, 24 comparações e 52 movimentações. Nos três testes o vetor foi ordenado corretamente.
+* Com a conclusão e validação do Heap Sort, os cinco algoritmos de ordenação previstos nesta etapa — Selection Sort, Insertion Sort, Shell Sort, Quick Sort e Heap Sort — encontram-se implementados e testados individualmente.
+* Após os testes, o projeto continuou compilando sem erros. Permaneceram apenas os avisos já existentes em `menus.cpp` relacionados à comparação entre tipos `int` e `std::vector<int>::size_type`, que serão tratados posteriormente.
+
+### IMPLEMENTAÇÃO DOS MENUS DE ORDENAÇÃO E COMPARAÇÃO — GUILHERME
+
+* Implementei as funções individuais `menuSelectionSort`, `menuInsertionSort`, `menuShellSort`, `menuQuickSort` e `menuHeapSort` em `src/menus.cpp`, responsáveis por chamar os métodos estáticos da classe `Ordenacao` e imprimir as estatísticas geradas.
+* Alterei as assinaturas no arquivo `include/menus.h` para que as funções de menu recebam o vetor por valor (`vector<int> listaDados`) em vez de referência, preservando os dados originais no menu principal.
+* Implementei a função `menuExecutarComparar`, utilizando a biblioteca `<iomanip>` (`setw`, `setfill`, `left`) para gerar uma tabela formatada lado a lado com os algoritmos, suas comparações, movimentações e tempo de execução em segundos.
+* Atualizei o arquivo `src/main.cpp` com uma estrutura `switch-case` completa que aciona as funções de menu implementadas com base na opção selecionada pelo usuário.
+* Corrigi o tipo da variável de controle no laço da função `printDados` para `long long unsigned int`, equalizando-o com o tipo de retorno de `listaDados.size()` para evitar avisos do compilador.
+* Removi o arquivo binário `programa.exe` do rastreamento do repositório.
+* Efetuei o merge das alterações remotas da branch `origin/feature/parte-dimitrius` para a branch `guilherme-development`.
+
+### CRIAÇÃO DO GERADOR DE DADOS E EXIBIÇÃO — GUILHERME
+
+* Criei os arquivos `include/menus.h` e `src/menus.cpp` para centralizar a interface e implementei o `menuGerarDados`, possibilitando ao usuário selecionar a quantidade de elementos (1.000 a 100.000) e o estado do vetor (Aleatório, Ordenado, Ordem Inversa ou Parcialmente Ordenado).
+* Corrigi a lógica de preenchimento dos vetores em `src/GerarDados.cpp`. Alterei o uso de `push_back()` para atribuição direta pelo índice `listaNum[i]`, pois o vetor já estava sendo instanciado com o tamanho máximo predefinido.
+* Atualizei a classe `GeradorDados`, alterando seus métodos para `static` e implementando instâncias estáticas para geração de entropia (`std::random_device` e `std::mt19937`) no arquivo `.h`, ajustando também a importação da biblioteca `<random>`.
+* Implementei a função `menuExibirDados`, que imprime os elementos do vetor formatados entre colchetes e separados por vírgulas.
+
+### ESTRUTURAÇÃO DO PROJETO E ARQUIVOS BASE — GUILHERME
+
+* Reorganizei a arquitetura de pastas do repositório, movendo todos os arquivos de cabeçalho (`.h`) para o diretório `include/` e os códigos-fonte (`.cpp`) para `src/`.
+* Criei o diretório `docs/` e adicionei o documento em PDF contendo a especificação do trabalho prático.
+* Atualizei o arquivo `README.md` com as instruções de linha de comando para a compilação do projeto.
+* Atualizei o arquivo `.gitignore` para omitir as pastas e arquivos `build/`, `.vscode/` e `CMakeLists.txt`
+
+## 01/09/2026
+
+### CRIAÇÃO DO REPOSITÓRIO — GUILHERME
+
+* Iniciei a criação do repositório adicionando o arquivo `README.md` com as intruções básicas e um arquivo `.gitignore` para excluir artefatos de compilação e configurações de IDE (`bin/`, `obj/`, `*.cbp`, `*.depend`, `*.layout`).
