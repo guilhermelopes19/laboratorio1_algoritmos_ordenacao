@@ -164,7 +164,7 @@ void printDados(vector<int> listaDados) {
         cout << "Lista Vazia]" << endl;
         return;
     }
-    for(int i = 0; i < listaDados.size(); i++) {
+    for(long long unsigned int i = 0; i < listaDados.size(); i++) {
         if(i != listaDados.size()-1) {
             cout << listaDados[i] << ", ";
         } else {
