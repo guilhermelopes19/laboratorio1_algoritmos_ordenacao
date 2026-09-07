@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 //inclui a biblioteca de tempo
-#include <time.h>
+#include <chrono>
 
 #include "Estatisticas.h"
 #include "Ordenacao.h"
@@ -11,7 +11,7 @@
 // Alterado o método para que possa receber o vector diretamente.
 void Ordenacao::selectionSort(std::vector<int>& A, Estatisticas& est)
 {
-    clock_t inicio = clock();
+    auto inicio = std::chrono::steady_clock::now();
 
     // ATENÇÃO - APAGAR DEPOIS!!!!
     // ALTERADO:
@@ -81,18 +81,19 @@ void Ordenacao::selectionSort(std::vector<int>& A, Estatisticas& est)
         est.movimentacoes += 3;
     }
 
-    clock_t fim = clock();
+    // Captura o tempo final
+    auto fim = std::chrono::steady_clock::now();
 
-    // Calcula o tempo de execução do algoritmo em segundos.
-    est.tempoExecucao =
-        ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    // Calcula a diferença diretamente em segundos, armazenando em um double
+    std::chrono::duration<double> diferenca = fim - inicio;
+    est.tempoExecucao = diferenca.count();
 }
 
 // ATENÇÃO - APAGAR DEPOIS!!!!
 // Alterado o método para que possa receber o vector diretamente.
 void Ordenacao::insertionSort(std::vector<int>& A, Estatisticas& est)
 {
-    clock_t inicio = clock();
+    auto inicio = std::chrono::steady_clock::now();
 
     // ATENÇÃO - APAGAR DEPOIS!!!!
     // ALTERADO:
@@ -167,11 +168,12 @@ void Ordenacao::insertionSort(std::vector<int>& A, Estatisticas& est)
         est.movimentacoes++;
     }
 
-    clock_t fim = clock();
+    // Captura o tempo final
+    auto fim = std::chrono::steady_clock::now();
 
-    // Calcula o tempo de execução do algoritmo em segundos.
-    est.tempoExecucao =
-        ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    // Calcula a diferença diretamente em segundos, armazenando em um double
+    std::chrono::duration<double> diferenca = fim - inicio;
+    est.tempoExecucao = diferenca.count();
 }
 
 // ATENÇÃO - APAGAR DEPOIS!!!!
@@ -180,7 +182,7 @@ void Ordenacao::insertionSort(std::vector<int>& A, Estatisticas& est)
 // Adaptei o algoritmo para receber vector<int> e utilizar a classe Ordenacao.
 void Ordenacao::shellSort(std::vector<int>& A, Estatisticas& est)
 {
-    clock_t inicio = clock();
+    auto inicio = std::chrono::steady_clock::now();
 
     int n = A.size();
     int h = 1;
@@ -191,10 +193,12 @@ void Ordenacao::shellSort(std::vector<int>& A, Estatisticas& est)
     // Evita problemas caso o vector tenha zero ou apenas um elemento.
     if (n <= 1)
     {
-        clock_t fim = clock();
+        // Captura o tempo final
+        auto fim = std::chrono::steady_clock::now();
 
-        est.tempoExecucao =
-            ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+        // Calcula a diferença diretamente em segundos, armazenando em um double
+        std::chrono::duration<double> diferenca = fim - inicio;
+        est.tempoExecucao = diferenca.count();
 
         return;
     }
@@ -246,10 +250,12 @@ void Ordenacao::shellSort(std::vector<int>& A, Estatisticas& est)
 
     } while (h != 1);
 
-    clock_t fim = clock();
+    // Captura o tempo final
+    auto fim = std::chrono::steady_clock::now();
 
-    est.tempoExecucao =
-        ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    // Calcula a diferença diretamente em segundos, armazenando em um double
+    std::chrono::duration<double> diferenca = fim - inicio;
+    est.tempoExecucao = diferenca.count();
 }
 
 // ATENÇÃO - APAGAR DEPOIS!!!!
@@ -291,7 +297,7 @@ void Ordenacao::ordena( int esq, int dir, std::vector<int>& A, Estatisticas& est
 // e inicia a chamada da função recursiva ordena.
 void Ordenacao::quickSort( std::vector<int>& A, Estatisticas& est )
 {
-    clock_t inicio = clock();
+    auto inicio = std::chrono::steady_clock::now();
 
     // ATENÇÃO - APAGAR DEPOIS!!!!
     // Guardamos o tamanho do vector em uma variável int,
@@ -313,13 +319,12 @@ void Ordenacao::quickSort( std::vector<int>& A, Estatisticas& est )
         ordena(0, n - 1, A, est);
     }
 
-    clock_t fim = clock();
+    // Captura o tempo final
+    auto fim = std::chrono::steady_clock::now();
 
-    // Calcula o tempo total de execução do Quick Sort em segundos.
-    // O tempo é medido apenas aqui, e não dentro da função recursiva,
-    // para não reiniciar a medição em cada chamada.
-    est.tempoExecucao =
-        ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    // Calcula a diferença diretamente em segundos, armazenando em um double
+    std::chrono::duration<double> diferenca = fim - inicio;
+    est.tempoExecucao = diferenca.count();
 }
 
 // ATENÇÃO - APAGAR DEPOIS!!!!
@@ -482,7 +487,7 @@ void Ordenacao::constroi( std::vector<int>& A, int n, Estatisticas& est)
 // com o último elemento da parte ainda não ordenada.
 void Ordenacao::heapSort( std::vector<int>& A, Estatisticas& est )
 {
-    clock_t inicio = clock();
+    auto inicio = std::chrono::steady_clock::now();
 
     int n = A.size();
 
@@ -528,10 +533,12 @@ void Ordenacao::heapSort( std::vector<int>& A, Estatisticas& est )
         }
     }
 
-    clock_t fim = clock();
+    // Captura o tempo final
+    auto fim = std::chrono::steady_clock::now();
 
-    est.tempoExecucao =
-        ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    // Calcula a diferença diretamente em segundos, armazenando em um double
+    std::chrono::duration<double> diferenca = fim - inicio;
+    est.tempoExecucao = diferenca.count();
 }
 
 // ATENÇÃO - APAGAR DEPOIS!!!! 
