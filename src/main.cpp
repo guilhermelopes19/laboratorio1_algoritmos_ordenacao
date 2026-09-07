@@ -9,17 +9,26 @@
 #include <cstdlib>
 #include <Estatisticas.h>
 #include <menus.h>
+//permite o uso do vector
 #include <vector>
+//biblioteca necessária para faezr validação da opção digitada pelo usário (digitar caracteres ao invés de números)
+#include <limits>
+//permite usar acentuação
+#include <windows.h>
+
 
 using namespace std;
 
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+
     int opcao;
     vector<int> listaDados;
 
     do {
         system("cls");
-        cout << "--- Bem vindo a Ordenacao ---\n"
+        cout << "--- Bem vindo a Ordenação ---\n"
              << "1.  Gerar um conjunto de dados\n"
              << "2.  Exibir os dados gerados\n"
              << "3.  Ordenar utilizando Selection Sort\n"
@@ -31,8 +40,23 @@ int main() {
              << "9.  Encerrar o programa\n" 
              << endl;
 
-        cout << "Digite o numero da opcao desejada: " <<endl;
+        cout << "Digite o numero da opção desejada: " <<endl;
         cin >> opcao;
+
+        // Verifica se o usuario digitou um valor invalido, como uma letra
+        if(cin.fail()){
+            // Limpa o estado de erro do cin para permitir novas leituras
+            cin.clear();
+            // Descarta a entrada invalida que ficou armazenada no buffer
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            cout << "\nEntrada inválida! Digite apenas numeros\n" << endl;
+            system("pause");
+
+            // Volta para o inicio do menu principal
+            continue;
+
+        }
 
         switch (opcao){
             case 1:

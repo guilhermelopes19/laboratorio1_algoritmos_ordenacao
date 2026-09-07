@@ -117,3 +117,18 @@
 * Quando nenhuma lista tiver sido gerada, o programa exibe a mensagem `Nenhum conjunto de dados foi gerado!` e retorna ao menu principal sem executar a operação selecionada.
 * Testei individualmente as opções 2 a 8 antes da geração de qualquer conjunto de dados. Todas foram bloqueadas corretamente, sem tentativa de ordenação ou comparação de um vetor vazio.
 * Mantive a opção de geração de dados disponível normalmente, permitindo que, após a criação do vetor, as demais operações sejam executadas.
+
+### VALIDAÇÃO DE ENTRADAS E CONFIGURAÇÃO DO CONSOLE — DIMITRIUS
+* Adicionei tratamento para entradas não numéricas nas leituras realizadas pelo programa, evitando que `cin` permaneça em estado de falha quando o usuário digita letras ou outros caracteres em campos que esperam valores inteiros.
+* Incluí a biblioteca `<limits>` para utilizar `numeric_limits<streamsize>::max()` na limpeza do buffer de entrada.
+* Nas entradas inválidas, passei a utilizar `cin.clear()` para restaurar o estado do fluxo e `cin.ignore()` para descartar os caracteres inválidos que permaneceram no buffer.
+* Apliquei a validação à escolha da opção do menu principal em `src/main.cpp` e às entradas da função `menuGerarDados` em `src/menus.cpp`, incluindo a escolha da quantidade de elementos, a entrada do tamanho personalizado e a escolha do tipo de organização dos dados.
+* Mantive separadas as validações de tipo e de valor: entradas como letras são identificadas como entradas inválidas, enquanto valores numéricos iguais ou inferiores a zero continuam sendo identificados especificamente como tamanhos de vetor inválidos.
+* Validei também opções numéricas inexistentes nos menus, mantendo o tratamento pelo `default` do `switch-case`. Dessa forma, o programa diferencia uma entrada que não é numérica de um número que não corresponde a uma opção disponível.
+* Testei a recuperação do fluxo de entrada após valores como `a` e `teste`, confirmando que o programa continua aceitando normalmente novas entradas após a ocorrência do erro.
+* Testei o tamanho personalizado com uma entrada não numérica, com `0` e com `-5`. A entrada não numérica foi rejeitada pela validação do `cin`, enquanto os valores iguais ou inferiores a zero foram rejeitados pela validação do tamanho.
+* Testei a escolha do tipo de dados com uma letra e com a opção numérica `9`. A letra foi identificada como entrada não numérica e o valor `9` foi identificado como uma opção inexistente.
+* Adicionei a biblioteca `<windows.h>` em `src/main.cpp` e configurei o console com `SetConsoleOutputCP(CP_UTF8)` e `SetConsoleCP(CP_UTF8)`, permitindo a exibição correta de caracteres acentuados nas mensagens do programa.
+* Atualizei textos exibidos pelo programa para utilizar acentuação, incluindo termos como `Ordenação`, `opção`, `inválida`, `Comparações`, `Movimentações` e `Execução`.
+* Validei a configuração UTF-8 tanto no menu principal quanto nas saídas de `src/menus.cpp`, incluindo a tabela de comparação dos cinco algoritmos.
+* Após as alterações, o fluxo dos menus e a execução da tabela comparativa continuaram funcionando normalmente.

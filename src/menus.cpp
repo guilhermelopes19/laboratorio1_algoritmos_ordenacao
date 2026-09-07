@@ -5,6 +5,8 @@
 #include <Ordenacao.h>
 #include <iomanip>
 #include <string>
+//biblioteca necessária para faezr validação da opção digitada pelo usário (digitar caracteres ao invés de números)
+#include <limits>
 
 using namespace std;
 
@@ -23,8 +25,23 @@ void menuGerarDados(vector<int>& listaDados) {
          << "4. 100.000 elementos\n"
          << "5. Informar outro tamanho\n" <<endl; 
 
-    cout << "Digite o numero da opcao desejada: " <<endl;
+    cout << "\nDigite o número da opção desejada: " << endl;
     cin >> opcao;
+
+    // Verifica se o usuario digitou um valor invalido, como uma letra
+    if(cin.fail()){
+        // Limpa o estado de erro do cin para permitir novas leituras
+        cin.clear();
+        // Descarta a entrada invalida que ficou armazenada no buffer
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        cout << "\nEntrada inválida! Digite apenas números\n" << endl;
+        system("pause");
+
+        // Volta para o inicio do menu principal
+        return;
+
+    }
 
     switch(opcao) {
         case 1:
@@ -47,9 +64,24 @@ void menuGerarDados(vector<int>& listaDados) {
             cout << "Digite o tamanho do vetor: " <<endl;
             cin>> tamanho;
 
+            // Verifica se o usuario digitou um valor invalido, como uma letra
+            if(cin.fail()){
+                // Limpa o estado de erro do cin para permitir novas leituras
+                cin.clear();
+                // Descarta a entrada invalida que ficou armazenada no buffer
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                cout << "\nEntrada inválida! Digite apenas números\n" << endl;
+                system("pause");
+
+                // Volta para o inicio do menu principal
+                return;
+
+            }
+            
             if (tamanho <=0)
             {
-                cout << "Tamanho do vetor inválido! Voltando ao Menu... \n"<<endl;;
+                cout << "\nTamanho do vetor inválido! Voltando ao Menu... \n"<<endl;;
                 system("pause");
                 return;
             }
@@ -57,20 +89,35 @@ void menuGerarDados(vector<int>& listaDados) {
             break;
 
         default:
-            cout << "Opcao invalida! Voltando ao Menu...\n";
+            cout << "\nOpção inválida! Voltando ao Menu...\n";
             system("pause");
             return;
     }
 
     system("cls");
     cout << "--- Gerar Dados ---\n"
-         << "1. Dados Aleatorios\n"
+         << "1. Dados Aleatórios\n"
          << "2. Dados Ordenados\n"
          << "3. Dados Ordem Inversa\n"
          << "4. Dados Parcialmente Ordenados\n" <<endl; 
 
-    cout << "Digite o numero da opcao desejada: " <<endl;
+    cout << "\nDigite o numero da opção desejada: " <<endl;
     cin >> opcao;
+
+    // Verifica se o usuario digitou um valor invalido, como uma letra
+    if(cin.fail()){
+        // Limpa o estado de erro do cin para permitir novas leituras
+        cin.clear();
+        // Descarta a entrada invalida que ficou armazenada no buffer
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        cout << "\nEntrada inválida! Digite apenas números\n" << endl;
+        system("pause");
+
+        // Volta para o inicio do menu principal
+        return;
+
+    }
 
     switch(opcao) {
         
@@ -91,12 +138,12 @@ void menuGerarDados(vector<int>& listaDados) {
             break;
           
         default:
-            cout << "Opcao invalida! Voltando ao Menu...\n";
+            cout << "\nOpção inválida! Voltando ao Menu...\n";
             system("pause");
             return;
     }
 
-    cout << "Lista de dados gerada com sucesso!\n";
+    cout << "\nLista de dados gerada com sucesso!\n";
     system("pause");
 }
 
@@ -227,9 +274,9 @@ void menuExecutarComparar(vector<int> listaDados) {
 
     cout << left; 
     cout << setw(25) << "Algoritmo"
-         << setw(25) << "Comparacoes"
-         << setw(25) << "Movimentacoes" 
-         << setw(25) << "Tempo de Execucao (s)" << endl;
+         << setw(25) << "Comparações"
+         << setw(25) << "Movimentações" 
+         << setw(25) << "Tempo de Execução (s)" << endl;
     
     cout << setfill('-') << setw(100) << "" << endl;
 
@@ -245,7 +292,7 @@ void menuExecutarComparar(vector<int> listaDados) {
          << setw(25) << estSelection.tempoExecucao 
          << endl;
 
-    cout << "\r[Aguarde, executando Insertion Shell...]" << flush;
+    cout << "\r[Aguarde, executando Insertion Sort...]" << flush;
     Ordenacao::insertionSort(listaInsertion, estInsertion);
     cout << "\r"
          << setw(25) << "Insertion Sort"
@@ -303,8 +350,8 @@ void printDados(vector<int> listaDados) {
 
 void printEstatisticas(Estatisticas est) {
     cout << "-----------------------" << endl;
-    cout << "Comparacoes      : " << est.comparacoes << endl;
-    cout << "Movimentacoes    : " << est.movimentacoes << endl;
-    cout << "Tempo de Execucao: " << est.tempoExecucao << endl;
+    cout << "Comparações      : " << est.comparacoes << endl;
+    cout << "Movimentações    : " << est.movimentacoes << endl;
+    cout << "Tempo de Execução: " << est.tempoExecucao << endl;
     cout << "-----------------------" << endl;
 }
