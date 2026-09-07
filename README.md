@@ -1,5 +1,7 @@
-# How to compile
-Rode o seguinte comando para compilar:
-```bash
-g++ -Iinclude src/*.cpp -o ordenador.exe
-```
+# Compilar:
+
+g++ -std=c++17 -Wall -Wextra -pedantic -Iinclude src/*.cpp -o programa.exe
+
+# Executar:
+
+.\programa.exe

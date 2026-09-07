@@ -3,22 +3,26 @@
 ## 06/09/2026
 
 ### ATUALIZAÇÃO E INTEGRAÇÃO DAS BRANCHES — DIMITRIUS
-
 * Criei a branch `feature/parte-dimitrius` a partir da `main` atualizada e integrei as alterações das branches `guilherme-development` e `feature/parte_bruno`.
-
 * Durante o merge da branch do Bruno, houve conflito em `Ordenacao.h` e `Ordenacao.cpp`, pois esses arquivos haviam sido reorganizados pelo Guilherme.
-
 * Mantive a estrutura atual do projeto:
-
   * `include/Ordenacao.h`
   * `src/Ordenacao.cpp`
-
 * Incorporei nesses arquivos o código desenvolvido pelo Bruno.
-
 * Após resolver o conflito, finalizei o merge e enviei a branch `feature/parte-dimitrius` para o GitHub.
 
 ### CRIAÇÃO DE BRANCH DE BACKUP — DIMITRIUS
-
 * Criei a branch `backup/integracao-bruno-guilherme` para preservar o estado do projeto após a integração das branches do Guilherme e do Bruno.
-
 * Mantive a `feature/parte-dimitrius` como branch de desenvolvimento para realizar as próximas correções e alterações.
+
+### ADAPTAÇÃO DOS ALGORITMOS SELECTION SORT E INSERTION SORT — DIMITRIUS
+* Adaptei os algoritmos Selection Sort e Insertion Sort, anteriormente integrados ao projeto, para trabalharem diretamente com `std::vector<int>`, mantendo o padrão utilizado na geração e no armazenamento dos dados.
+* No Selection Sort, alterei a implementação que utilizava `Item*`, `Indice` e acesso ao campo `Chave` para utilizar diretamente os valores armazenados no `vector<int>`.
+* Ajustei os índices do Selection Sort para o padrão do `vector`, iniciando na posição `0`, e mantive o registro de comparações, movimentações e tempo de execução através da estrutura `Estatisticas`.
+* No Insertion Sort, também adaptei a implementação para `vector<int>` e removi o uso da posição `A[0]` como sentinela, pois no `vector` a posição `0` corresponde a um elemento válido dos dados.
+* Para substituir a sentinela, foi adicionada a verificação do limite do índice durante o deslocamento dos elementos, evitando acesso a posições negativas do `vector`.
+* Mantive como critério de comparações a contagem das comparações entre os valores do vetor e como movimentações as atribuições realizadas durante o processo de ordenação.
+* Realizei testes com vetores pequenos para validar os algoritmos e conferir as estatísticas geradas.
+* O Selection Sort foi testado com o vetor `{5, 2, 4, 1, 3}`, resultando em `{1, 2, 3, 4, 5}`, com 10 comparações e 12 movimentações.
+* O Insertion Sort foi testado com dados aleatórios, ordenados e inversamente ordenados. Os resultados confirmaram a ordenação correta e a contabilização das comparações e movimentações conforme o critério adotado.
+* O projeto foi compilado após as alterações. Permaneceram apenas avisos de comparação entre tipos diferentes em `menus.cpp`, que serão tratados posteriormente.
