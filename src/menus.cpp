@@ -141,7 +141,17 @@ void menuQuickSort(vector<int> listaDados) {
 }
 
 void menuHeapSort(vector<int> listaDados) {
+    Estatisticas estHeapSort;
+    
+    system("cls");
+    cout << "--- Heap Sort ---\n";
 
+    Ordenacao::heapSort(listaDados, estHeapSort);
+
+    printDados(listaDados);
+    printEstatisticas(estHeapSort);
+    
+    system("pause");
 }
 
 void menuExecutarComparar(vector<int> listaDados) {
