@@ -96,6 +96,7 @@ void menuSelectionSort(vector<int> listaDados) {
 
     Ordenacao::selectionSort(listaDados, estSelectionSort);
 
+    cout << "\r" << setw(50) << "" << flush;
     cout << "\r";
 
     printDados(listaDados);
@@ -114,6 +115,7 @@ void menuInsertionSort(vector<int> listaDados) {
 
     Ordenacao::insertionSort(listaDados, estInsertionSort);
 
+    cout << "\r" << setw(50) << "" << flush;
     cout << "\r";
 
     printDados(listaDados);
@@ -132,6 +134,7 @@ void menuShellSort(vector<int> listaDados) {
 
     Ordenacao::shellSort(listaDados, estShellSort);
 
+    cout << "\r" << setw(50) << "" << flush;
     cout << "\r";
 
     printDados(listaDados);
@@ -150,7 +153,8 @@ void menuQuickSort(vector<int> listaDados) {
 
     Ordenacao::quickSort(listaDados, estQuickSort);
 
-    cout << "\r ";
+    cout << "\r" << setw(50) << "" << flush;
+    cout << "\r";
 
     printDados(listaDados);
     printEstatisticas(estQuickSort);
@@ -168,6 +172,7 @@ void menuHeapSort(vector<int> listaDados) {
 
     Ordenacao::heapSort(listaDados, estHeapSort);
 
+    cout << "\r" << setw(50) << "" << flush;
     cout << "\r";   
 
     printDados(listaDados);
