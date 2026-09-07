@@ -61,7 +61,7 @@ void menuGerarDados(vector<int>& listaDados) {
             break;
 
         case 5:
-            cout << "Digite o tamanho do vetor: " <<endl;
+            cout << "\nDigite o tamanho do vetor:" <<endl;
             cin>> tamanho;
 
             // Verifica se o usuario digitou um valor invalido, como uma letra
