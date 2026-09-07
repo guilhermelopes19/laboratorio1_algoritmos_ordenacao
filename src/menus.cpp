@@ -20,7 +20,8 @@ void menuGerarDados(vector<int>& listaDados) {
     cout << "1. 1.000 elementos\n"
          << "2. 10.000 elementos\n"
          << "3. 50.000 elementos\n"
-         << "4. 100.000 elementos\n";
+         << "4. 100.000 elementos\n"
+         << "5. Informar outro tamanho\n" <<endl; 
 
     cout << "Digite o numero da opcao desejada: " <<endl;
     cin >> opcao;
@@ -29,15 +30,32 @@ void menuGerarDados(vector<int>& listaDados) {
         case 1:
             tamanho = 1000;
             break;
+
         case 2:
             tamanho = 10000;
             break;
+
         case 3: 
             tamanho = 50000;
             break;
+
         case 4:
             tamanho = 100000;
             break;
+
+        case 5:
+            cout << "Digite o tamanho do vetor: " <<endl;
+            cin>> tamanho;
+
+            if (tamanho <=0)
+            {
+                cout << "Tamanho do vetor inválido! Voltando ao Menu... \n"<<endl;;
+                system("pause");
+                return;
+            }
+
+            break;
+
         default:
             cout << "Opcao invalida! Voltando ao Menu...\n";
             system("pause");
@@ -49,24 +67,29 @@ void menuGerarDados(vector<int>& listaDados) {
          << "1. Dados Aleatorios\n"
          << "2. Dados Ordenados\n"
          << "3. Dados Ordem Inversa\n"
-         << "4. Dados Parcialmente Ordenados\n";
+         << "4. Dados Parcialmente Ordenados\n" <<endl; 
 
     cout << "Digite o numero da opcao desejada: " <<endl;
     cin >> opcao;
 
     switch(opcao) {
+        
         case 1:
             listaDados = GeradorDados::gerarAleatorio(tamanho);
             break;
+
         case 2:
             listaDados = GeradorDados::gerarOrdenado(tamanho);
             break;
+
         case 3: 
             listaDados = GeradorDados::gerarInverso(tamanho);
             break;
+            
         case 4:
             listaDados = GeradorDados::gerarParcialmenteOrdenado(tamanho);
             break;
+          
         default:
             cout << "Opcao invalida! Voltando ao Menu...\n";
             system("pause");

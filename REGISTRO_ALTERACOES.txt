@@ -3,7 +3,6 @@
 ## 07/09/2026
 
 ### ATUALIZAÇÃO DA LÓGICA E SAÍDAS DO MENU — GUILHERME
-
 * Corrigi um erro lógico na função `menuExecutarComparar` em `src/menus.cpp`, onde todos os algoritmos alteravam o mesmo `vector` original. Criei cópias independentes dos dados (`listaSelection`, `listaInsertion`, `listaShell`, `listaQuick`, `listaHeap`) para garantir que cada algoritmo receba o vetor no estado original para uma comparação precisa.
 * Modifiquei a formatação das mensagens de texto em `src/main.cpp` e `src/menus.cpp`, substituindo o uso de barras de escape `\n\` por operadores de inserção `<<` encadeados, melhorando a indentação e legibilidade do código-fonte.
 * Inseri a mensagem temporária `\r[Aguarde, executando algoritmo...]` combinada com `flush` em todos os menus de ordenação e na tabela de comparação para exibir o progresso do processamento.
@@ -67,7 +66,6 @@
 * Após os testes, o projeto continuou compilando sem erros. Permaneceram apenas os avisos já existentes em `menus.cpp` relacionados à comparação entre tipos `int` e `std::vector<int>::size_type`, que serão tratados posteriormente.
 
 ### IMPLEMENTAÇÃO DOS MENUS DE ORDENAÇÃO E COMPARAÇÃO — GUILHERME
-
 * Implementei as funções individuais `menuSelectionSort`, `menuInsertionSort`, `menuShellSort`, `menuQuickSort` e `menuHeapSort` em `src/menus.cpp`, responsáveis por chamar os métodos estáticos da classe `Ordenacao` e imprimir as estatísticas geradas.
 * Alterei as assinaturas no arquivo `include/menus.h` para que as funções de menu recebam o vetor por valor (`vector<int> listaDados`) em vez de referência, preservando os dados originais no menu principal.
 * Implementei a função `menuExecutarComparar`, utilizando a biblioteca `<iomanip>` (`setw`, `setfill`, `left`) para gerar uma tabela formatada lado a lado com os algoritmos, suas comparações, movimentações e tempo de execução em segundos.
@@ -84,7 +82,6 @@
 * Implementei a função `menuExibirDados`, que imprime os elementos do vetor formatados entre colchetes e separados por vírgulas.
 
 ### ESTRUTURAÇÃO DO PROJETO E ARQUIVOS BASE — GUILHERME
-
 * Reorganizei a arquitetura de pastas do repositório, movendo todos os arquivos de cabeçalho (`.h`) para o diretório `include/` e os códigos-fonte (`.cpp`) para `src/`.
 * Criei o diretório `docs/` e adicionei o documento em PDF contendo a especificação do trabalho prático.
 * Atualizei o arquivo `README.md` com as instruções de linha de comando para a compilação do projeto.
@@ -93,5 +90,30 @@
 ## 01/09/2026
 
 ### CRIAÇÃO DO REPOSITÓRIO — GUILHERME
-
 * Iniciei a criação do repositório adicionando o arquivo `README.md` com as intruções básicas e um arquivo `.gitignore` para excluir artefatos de compilação e configurações de IDE (`bin/`, `obj/`, `*.cbp`, `*.depend`, `*.layout`).
+
+### REVISÃO DO GERADOR DE DADOS — DIMITRIUS
+* Revisei a implementação da classe `GeradorDados` nos arquivos `include/GerarDados.h` e `src/GerarDados.cpp`, verificando o funcionamento dos quatro tipos de geração exigidos pelo trabalho: dados aleatórios, ordenados, inversamente ordenados e parcialmente ordenados.
+* Mantive como definição adotada pela equipe para os dados parcialmente ordenados a geração da primeira metade do `vector` em ordem crescente e da segunda metade com valores aleatórios.
+* Confirmei que os métodos `gerarAleatorio`, `gerarOrdenado`, `gerarInverso` e `gerarParcialmenteOrdenado` estão produzindo os tipos de dados esperados.
+* Identifiquei que as declarações de `uniform_int_distribution` presentes nos métodos `gerarOrdenado` e `gerarInverso` não eram utilizadas, pois os valores desses vetores são produzidos diretamente a partir dos índices.
+* Comentei temporariamente essas duas declarações para validar que sua remoção não altera o funcionamento do programa. Os comentários temporários serão removidos posteriormente durante a etapa final de limpeza do código.
+* Mantive `uniform_int_distribution` nos métodos `gerarAleatorio` e `gerarParcialmenteOrdenado`, onde a distribuição é efetivamente utilizada para gerar valores aleatórios.
+* Compilei novamente o projeto utilizando `g++ -std=c++17 -Wall -Wextra -pedantic -Iinclude src/*.cpp -o programa.exe`. A compilação foi concluída sem erros e sem avisos.
+* Mantivemos o critério atual da equipe para contabilização de comparações e movimentações nos algoritmos de ordenação, que será validado individualmente nas próximas etapas.
+
+### ADEQUAÇÃO DO MENU PARA TAMANHO PERSONALIZADO DO VETOR — DIMITRIUS
+* Atualizei a função `menuGerarDados` em `src/menus.cpp` para permitir que o usuário determine manualmente o tamanho `N` do vetor, atendendo ao requisito do trabalho de permitir a escolha da quantidade de elementos.
+* Mantive as opções predefinidas de 1.000, 10.000, 50.000 e 100.000 elementos, que serão utilizadas posteriormente nos experimentos comparativos.
+* Adicionei a opção `Informar outro tamanho`, permitindo a criação de vetores com outros valores de `N`, inclusive vetores pequenos que serão utilizados durante a validação manual dos algoritmos.
+* Adicionei uma validação para impedir a geração de vetores com tamanho igual ou inferior a zero. Nesses casos, o programa informa que o tamanho é inválido e retorna ao menu.
+* Durante o primeiro teste, identifiquei que a opção de tamanho personalizado havia sido inserida incorretamente no menu de escolha do tipo de dados. Corrigi a posição da opção para que a escolha do tamanho seja realizada antes da escolha entre dados aleatórios, ordenados, inversos ou parcialmente ordenados.
+* Validei a alteração gerando manualmente um vetor ordenado com 5 elementos. O programa gerou e exibiu corretamente `[1, 2, 3, 4, 5]`.
+
+### PROTEÇÃO CONTRA OPERAÇÕES SEM DADOS GERADOS — DIMITRIUS
+* Atualizei o `switch-case` do menu principal em `src/main.cpp` para impedir a execução das opções que dependem de um conjunto de dados quando nenhum vetor tiver sido gerado.
+* Utilizei o método `empty()` de `std::vector` para verificar se `listaDados` está vazio antes de permitir a exibição dos dados, a execução individual dos algoritmos ou a comparação entre todos eles.
+* A proteção foi aplicada às opções de exibição, Selection Sort, Insertion Sort, Shell Sort, Quick Sort, Heap Sort e execução comparativa.
+* Quando nenhuma lista tiver sido gerada, o programa exibe a mensagem `Nenhum conjunto de dados foi gerado!` e retorna ao menu principal sem executar a operação selecionada.
+* Testei individualmente as opções 2 a 8 antes da geração de qualquer conjunto de dados. Todas foram bloqueadas corretamente, sem tentativa de ordenação ou comparação de um vetor vazio.
+* Mantive a opção de geração de dados disponível normalmente, permitindo que, após a criação do vetor, as demais operações sejam executadas.

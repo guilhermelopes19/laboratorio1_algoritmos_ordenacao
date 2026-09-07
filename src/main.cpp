@@ -1,7 +1,9 @@
 // LABORATÓRIO 1 —  ALGORITMOS DE ORDENAÇÃO
-// Disciplina: Estrutura de Daos 2
+// Disciplina: Estrutura de Dados 2
 // Professora: Inês
 // Alunos: Bruno Barreto, Dimitrius Khouri e Guilherme Lopes 
+
+
 
 #include <iostream>
 #include <cstdlib>
@@ -37,24 +39,59 @@ int main() {
                 menuGerarDados(listaDados);
                 break;
             case 2:
+                if(listaDados.empty()) {
+                    cout << "\nNenhum conjunto de dados foi gerado!\n"<< endl;
+                    system("pause");
+                    break;
+                }
                 menuExibirDados(listaDados);
                 break;
             case 3:
+                if(listaDados.empty()) {
+                    cout << "\nNenhum conjunto de dados foi gerado!\n"<< endl;
+                    system("pause");
+                    break;
+                }
                 menuSelectionSort(listaDados);
                 break;
             case 4:
+                if(listaDados.empty()) {
+                    cout << "\nNenhum conjunto de dados foi gerado!\n"<< endl;
+                    system("pause");
+                    break;
+                }
                 menuInsertionSort(listaDados);
                 break;
             case 5:
+                if(listaDados.empty()) {
+                    cout << "\nNenhum conjunto de dados foi gerado!\n"<< endl;
+                    system("pause");
+                    break;
+                }
                 menuShellSort(listaDados);
                 break;
             case 6:
+                if(listaDados.empty()) {
+                    cout << "\nNenhum conjunto de dados foi gerado!\n"<< endl;
+                    system("pause");
+                    break;
+                }
                 menuQuickSort(listaDados);
                 break;
             case 7:
+                if(listaDados.empty()) {
+                    cout << "\nNenhum conjunto de dados foi gerado!\n"<< endl;
+                    system("pause");
+                    break;
+                }
                 menuHeapSort(listaDados);
                 break;
             case 8:
+                if(listaDados.empty()) {
+                    cout << "\nNenhum conjunto de dados foi gerado!\n"<< endl;
+                    system("pause");
+                    break;
+                }
                 menuExecutarComparar(listaDados);
                 break;
             case 9:
