@@ -1,8 +1,13 @@
 #include <menus.h>
 #include <iostream>
 #include <GerarDados.h>
+#include <Estatisticas.h>
+#include <Ordenacao.h>
 
 using namespace std;
+
+void printDados(vector<int> listaDados);
+void printEstatisticas(Estatisticas est);
 
 void menuGerarDados(vector<int>& listaDados) {
     int opcao, tamanho;
@@ -70,11 +75,57 @@ void menuGerarDados(vector<int>& listaDados) {
     system("pause");
 }
 
-void menuExibirDados(vector<int>& listaDados) {
+void menuExibirDados(vector<int> listaDados) {
     system("cls");
     cout << "--- Exibir Dados ---\n";
     
+    printDados(listaDados);
+
+    system("pause");
+}
+
+void menuSelectionSort(vector<int> listaDados) {
+    Estatisticas estSelectionSort;
+    
+    system("cls");
+    cout << "--- Selection Sort ---\n";
+    
+    
+
+    Ordenacao::selectionSort(listaDados, estSelectionSort);
+
+    printDados(listaDados);
+    printEstatisticas(estSelectionSort);
+    
+    system("pause");
+}
+
+void menuInsertionSort(vector<int> listaDados) {
+
+}
+
+void menuShellSort(vector<int> listaDados) {
+
+}
+
+void menuQuickSort(vector<int> listaDados) {
+
+}
+
+void menuHeapSort(vector<int> listaDados) {
+
+}
+
+void menuExecutarComparar(vector<int> listaDados) {
+
+}
+
+void printDados(vector<int> listaDados) {
     cout << "[";
+    if(listaDados.empty()) {
+        cout << "Lista Vazia]" << endl;
+        return;
+    }
     for(int i = 0; i < listaDados.size(); i++) {
         if(i != listaDados.size()-1) {
             cout << listaDados[i] << ", ";
@@ -82,30 +133,12 @@ void menuExibirDados(vector<int>& listaDados) {
             cout << listaDados[i] << "]" << endl;
         }
     }
-
-    system("pause");
 }
 
-void menuSelectionSort() {
-
-}
-
-void menuInsertionSort() {
-
-}
-
-void menuShellSort() {
-
-}
-
-void menuQuickSort() {
-
-}
-
-void menuHeapSort() {
-
-}
-
-void menuExecutarComparar() {
-
+void printEstatisticas(Estatisticas est) {
+    cout << "-----------------------" << endl;
+    cout << "Comparacoes      : " << est.comparacoes << endl;
+    cout << "Movimentacoes    : " << est.movimentacoes << endl;
+    cout << "Tempo de Execucao: " << est.tempoExecucao << endl;
+    cout << "-----------------------" << endl;
 }
