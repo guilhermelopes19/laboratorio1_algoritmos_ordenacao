@@ -1,5 +1,14 @@
 # DIÁRIO DE ALTERAÇÕES
 
+## 07/09/2026
+
+### ATUALIZAÇÃO DA LÓGICA E SAÍDAS DO MENU — GUILHERME
+
+* Corrigi um erro lógico na função `menuExecutarComparar` em `src/menus.cpp`, onde todos os algoritmos alteravam o mesmo `vector` original. Criei cópias independentes dos dados (`listaSelection`, `listaInsertion`, `listaShell`, `listaQuick`, `listaHeap`) para garantir que cada algoritmo receba o vetor no estado original para uma comparação precisa.
+* Modifiquei a formatação das mensagens de texto em `src/main.cpp` e `src/menus.cpp`, substituindo o uso de barras de escape `\n\` por operadores de inserção `<<` encadeados, melhorando a indentação e legibilidade do código-fonte.
+* Inseri a mensagem temporária `\r[Aguarde, executando algoritmo...]` combinada com `flush` em todos os menus de ordenação e na tabela de comparação para exibir o progresso do processamento.
+* Refinei a limpeza do console após a execução das ordenações, utilizando `\r` com `setw(50)` para sobrescrever completamente a mensagem de aguarde antes de imprimir os dados ordenados.
+
 ## 06/09/2026
 
 ### ATUALIZAÇÃO E INTEGRAÇÃO DAS BRANCHES — DIMITRIUS
@@ -56,3 +65,33 @@
 * O algoritmo foi validado com vetores misto, ordenado e inversamente ordenado. Para `{5, 2, 8, 1, 7, 3, 6, 4}`, foram registradas 24 comparações e 54 movimentações; para `{1, 2, 3, 4, 5, 6, 7, 8}`, 27 comparações e 58 movimentações; e para `{8, 7, 6, 5, 4, 3, 2, 1}`, 24 comparações e 52 movimentações. Nos três testes o vetor foi ordenado corretamente.
 * Com a conclusão e validação do Heap Sort, os cinco algoritmos de ordenação previstos nesta etapa — Selection Sort, Insertion Sort, Shell Sort, Quick Sort e Heap Sort — encontram-se implementados e testados individualmente.
 * Após os testes, o projeto continuou compilando sem erros. Permaneceram apenas os avisos já existentes em `menus.cpp` relacionados à comparação entre tipos `int` e `std::vector<int>::size_type`, que serão tratados posteriormente.
+
+### IMPLEMENTAÇÃO DOS MENUS DE ORDENAÇÃO E COMPARAÇÃO — GUILHERME
+
+* Implementei as funções individuais `menuSelectionSort`, `menuInsertionSort`, `menuShellSort`, `menuQuickSort` e `menuHeapSort` em `src/menus.cpp`, responsáveis por chamar os métodos estáticos da classe `Ordenacao` e imprimir as estatísticas geradas.
+* Alterei as assinaturas no arquivo `include/menus.h` para que as funções de menu recebam o vetor por valor (`vector<int> listaDados`) em vez de referência, preservando os dados originais no menu principal.
+* Implementei a função `menuExecutarComparar`, utilizando a biblioteca `<iomanip>` (`setw`, `setfill`, `left`) para gerar uma tabela formatada lado a lado com os algoritmos, suas comparações, movimentações e tempo de execução em segundos.
+* Atualizei o arquivo `src/main.cpp` com uma estrutura `switch-case` completa que aciona as funções de menu implementadas com base na opção selecionada pelo usuário.
+* Corrigi o tipo da variável de controle no laço da função `printDados` para `long long unsigned int`, equalizando-o com o tipo de retorno de `listaDados.size()` para evitar avisos do compilador.
+* Removi o arquivo binário `programa.exe` do rastreamento do repositório.
+* Efetuei o merge das alterações remotas da branch `origin/feature/parte-dimitrius` para a branch `guilherme-development`.
+
+### CRIAÇÃO DO GERADOR DE DADOS E EXIBIÇÃO — GUILHERME
+
+* Criei os arquivos `include/menus.h` e `src/menus.cpp` para centralizar a interface e implementei o `menuGerarDados`, possibilitando ao usuário selecionar a quantidade de elementos (1.000 a 100.000) e o estado do vetor (Aleatório, Ordenado, Ordem Inversa ou Parcialmente Ordenado).
+* Corrigi a lógica de preenchimento dos vetores em `src/GerarDados.cpp`. Alterei o uso de `push_back()` para atribuição direta pelo índice `listaNum[i]`, pois o vetor já estava sendo instanciado com o tamanho máximo predefinido.
+* Atualizei a classe `GeradorDados`, alterando seus métodos para `static` e implementando instâncias estáticas para geração de entropia (`std::random_device` e `std::mt19937`) no arquivo `.h`, ajustando também a importação da biblioteca `<random>`.
+* Implementei a função `menuExibirDados`, que imprime os elementos do vetor formatados entre colchetes e separados por vírgulas.
+
+### ESTRUTURAÇÃO DO PROJETO E ARQUIVOS BASE — GUILHERME
+
+* Reorganizei a arquitetura de pastas do repositório, movendo todos os arquivos de cabeçalho (`.h`) para o diretório `include/` e os códigos-fonte (`.cpp`) para `src/`.
+* Criei o diretório `docs/` e adicionei o documento em PDF contendo a especificação do trabalho prático.
+* Atualizei o arquivo `README.md` com as instruções de linha de comando para a compilação do projeto.
+* Atualizei o arquivo `.gitignore` para omitir as pastas e arquivos `build/`, `.vscode/` e `CMakeLists.txt`
+
+## 01/09/2026
+
+### CRIAÇÃO DO REPOSITÓRIO — GUILHERME
+
+* Iniciei a criação do repositório adicionando o arquivo `README.md` com as intruções básicas e um arquivo `.gitignore` para excluir artefatos de compilação e configurações de IDE (`bin/`, `obj/`, `*.cbp`, `*.depend`, `*.layout`).
