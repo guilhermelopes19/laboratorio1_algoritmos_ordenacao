@@ -132,3 +132,43 @@
 * Atualizei textos exibidos pelo programa para utilizar acentuação, incluindo termos como `Ordenação`, `opção`, `inválida`, `Comparações`, `Movimentações` e `Execução`.
 * Validei a configuração UTF-8 tanto no menu principal quanto nas saídas de `src/menus.cpp`, incluindo a tabela de comparação dos cinco algoritmos.
 * Após as alterações, o fluxo dos menus e a execução da tabela comparativa continuaram funcionando normalmente.
+
+### IMPLEMENTAÇÃO DA MEDIÇÃO DE TEMPO COM `std::chrono` — GUILHERME
+* Substituí a utilização da biblioteca `<time.h>` pela biblioteca `<chrono>` em `src/Ordenacao.cpp` para realizar a medição do tempo de execução dos algoritmos de ordenação.
+* A alteração foi aplicada aos cinco algoritmos implementados: Selection Sort, Insertion Sort, Shell Sort, Quick Sort e Heap Sort.
+* Substituí as chamadas `clock()` utilizadas no início e no fim de cada algoritmo por `std::chrono::steady_clock::now()`, utilizando um relógio monotônico apropriado para a medição de intervalos de tempo.
+* Para calcular o tempo decorrido, utilizei `std::chrono::duration<double>` para representar a diferença entre o instante final e o instante inicial.
+* O valor obtido por meio de `diferenca.count()` continua sendo armazenado no campo `tempoExecucao` da estrutura `Estatisticas`, mantendo o resultado expresso em segundos e preservando a estrutura já utilizada pelo restante do programa.
+* Mantive a medição de tempo dentro das funções de ordenação, sem incluir a impressão dos vetores, mensagens do menu, pausas ou demais operações da interface.
+* No Shell Sort, também adaptei para `std::chrono` a medição realizada no tratamento específico de vetores com tamanho igual ou inferior a `1`.
+* Não alterei a lógica de ordenação, nem os critérios de contabilização de comparações e movimentações. A modificação realizada nesta branch ficou restrita à forma de medir o tempo de execução dos algoritmos.
+* Após a alteração, os algoritmos continuaram funcionando normalmente e passaram a apresentar valores de tempo utilizando a nova implementação baseada em `std::chrono`.
+
+### VALIDAÇÃO DOS CONTADORES DOS ALGORITMOS DE ORDENAÇÃO — DIMITRIUS
+* Realizei testes manuais dos cinco algoritmos de ordenação para verificar não apenas a ordenação dos dados, mas também a coerência dos contadores de comparações e movimentações registrados na estrutura `Estatisticas`.
+* Mantive como critério da equipe a contabilização apenas das comparações realizadas entre valores utilizados na ordenação, não incluindo comparações de índices ou condições de controle dos laços.
+* Para as movimentações, mantive a contabilização das atribuições de valores realizadas pelos algoritmos. As trocas feitas com variável auxiliar correspondem a três movimentações.
+* No Selection Sort, utilizei vetores pequenos para conferir manualmente as operações. Para o vetor inverso `[3, 2, 1]`, o algoritmo gerou `[1, 2, 3]`, com `3` comparações e `6` movimentações. Também foi confirmado que, na implementação atual, a troca é executada mesmo quando o menor elemento já ocupa a posição correta.
+* No Insertion Sort, o vetor inverso `[3, 2, 1]` resultou em `3` comparações e `7` movimentações. Para o vetor já ordenado `[1, 2, 3]`, foram registradas `2` comparações e `4` movimentações, confirmando a redução de operações quando os dados já se encontram ordenados.
+* No Shell Sort, foram realizados testes com vetores aleatório, ordenado e inverso. Para `[5, 4, 3, 2, 1]`, foram registradas `8` comparações e `14` movimentações; para `[1, 2, 3, 4, 5]`, `5` comparações e `10` movimentações. Os resultados foram conferidos considerando a sequência de incrementos utilizada pelo algoritmo.
+* No Quick Sort, foram realizados testes com diferentes organizações dos dados. Para `[3, 2, 1]`, o algoritmo produziu `[1, 2, 3]`, com `4` comparações e `7` movimentações. Também foram testados vetores aleatórios, ordenados e inversamente ordenados, todos com ordenação correta e contadores coerentes com a implementação.
+* No Heap Sort, foi utilizado o vetor `[3, 2, 1]` para uma validação manual das etapas de construção e reconstrução do heap. O algoritmo produziu `[1, 2, 3]`, registrando `3` comparações e `13` movimentações.
+* Após essas verificações, os cinco algoritmos obrigatórios — Selection Sort, Insertion Sort, Shell Sort, Quick Sort e Heap Sort — foram considerados funcionalmente validados quanto à ordenação e ao critério de contabilização adotado no projeto.
+
+### VALIDAÇÃO DA EXECUÇÃO COMPARATIVA DOS ALGORITMOS — DIMITRIUS
+* Validei a função `menuExecutarComparar` utilizando os mesmos conjuntos de dados que haviam sido utilizados nas execuções individuais dos algoritmos.
+* Comparei os valores de comparações e movimentações apresentados pelas execuções individuais com os valores exibidos posteriormente na tabela de comparação.
+* Para os vetores testados, os valores de comparações e movimentações da tabela coincidiram com os obtidos individualmente para Selection Sort, Insertion Sort, Shell Sort, Quick Sort e Heap Sort.
+* Essa verificação confirmou que as cópias independentes criadas em `menuExecutarComparar` estão permitindo que todos os algoritmos sejam executados sobre o mesmo estado inicial dos dados.
+* Testei também a preservação do vetor original após a execução da opção de comparação. Foi utilizado um vetor aleatório com `1.000` elementos, executada a comparação dos cinco algoritmos e, posteriormente, utilizada novamente a opção de exibição dos dados.
+* O vetor exibido após a comparação permaneceu idêntico ao vetor originalmente gerado e continuou desordenado, confirmando que nenhum dos algoritmos modifica permanentemente o `listaDados` armazenado no menu principal.
+* No teste aleatório com `1.000` elementos, o Selection Sort registrou `499500` comparações e `2997` movimentações. Esses valores foram conferidos matematicamente pela expressão `N * (N - 1) / 2` para as comparações e por `3 * (N - 1)` para as movimentações da implementação atual, obtendo exatamente os mesmos resultados apresentados pelo programa.
+* A execução com `1.000` elementos também confirmou o funcionamento da medição de tempo, pois os algoritmos passaram a apresentar valores mensuráveis na tabela comparativa.
+
+### TESTES DOS DIFERENTES ESTADOS INICIAIS DOS DADOS — DIMITRIUS
+* Executei os algoritmos utilizando conjuntos aleatórios, ordenados, inversamente ordenados e parcialmente ordenados para verificar o comportamento do programa nos quatro tipos de entrada previstos no trabalho.
+* Nos testes realizados, todos os algoritmos produziram o vetor em ordem crescente, independentemente da organização inicial dos dados.
+* Para vetores ordenados, foi observado nos testes pequenos que o Insertion Sort executou menos comparações e movimentações do que em vetores inversos, comportamento que será analisado posteriormente durante a etapa experimental do trabalho.
+* Também foi verificado que Selection Sort mantém a mesma quantidade de comparações para vetores de mesmo tamanho, independentemente da organização inicial, conforme esperado para a implementação adotada.
+* Esses testes foram utilizados apenas para validação funcional do sistema. Os valores obtidos nesta etapa ainda não foram considerados resultados experimentais definitivos do relatório, que serão coletados posteriormente de forma organizada para os diferentes tamanhos e estados iniciais dos vetores.
+
