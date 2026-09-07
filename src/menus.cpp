@@ -3,6 +3,8 @@
 #include <GerarDados.h>
 #include <Estatisticas.h>
 #include <Ordenacao.h>
+#include <iomanip>
+#include <string>
 
 using namespace std;
 
@@ -155,7 +157,69 @@ void menuHeapSort(vector<int> listaDados) {
 }
 
 void menuExecutarComparar(vector<int> listaDados) {
+    Estatisticas estSelectionSort;
+    Estatisticas estInsertionSort;
+    Estatisticas estShellSort;
+    Estatisticas estQuickSort;
+    Estatisticas estHeapSort;
 
+    Ordenacao::selectionSort(listaDados, estSelectionSort);
+    Ordenacao::insertionSort(listaDados, estInsertionSort);
+    Ordenacao::shellSort(listaDados, estShellSort);
+    Ordenacao::quickSort(listaDados, estQuickSort);
+    Ordenacao::heapSort(listaDados, estHeapSort);
+
+    system("cls");
+
+    cout << "--- Executar e Comparar Algoritmos ---" << endl;
+
+    cout << setfill('-') << setw(100) << "" << endl;
+
+    cout << setfill(' ');
+
+    cout << left; 
+    cout << setw(25) << "Algoritmo"
+         << setw(25) << "Comparacoes"
+         << setw(25) << "Movimentacoes" 
+         << setw(25) << "Tempo de Execucao (s)" << endl;
+    
+    cout << setfill('-') << setw(100) << "" << endl;
+
+    cout << setfill(' ');
+
+    cout << setw(25) << "Selection Sort"
+         << setw(25) << estSelectionSort.comparacoes
+         << setw(25) << estSelectionSort.movimentacoes
+         << setw(25) << estSelectionSort.tempoExecucao 
+         << endl;
+
+    cout << setw(25) << "Insertion Sort"
+         << setw(25) << estInsertionSort.comparacoes
+         << setw(25) << estInsertionSort.movimentacoes
+         << setw(25) << estInsertionSort.tempoExecucao 
+         << endl;
+
+    cout << setw(25) << "Shell Sort"
+         << setw(25) << estShellSort.comparacoes
+         << setw(25) << estShellSort.movimentacoes
+         << setw(25) << estShellSort.tempoExecucao 
+         << endl;
+
+    cout << setw(25) << "Quick Sort"
+         << setw(25) << estQuickSort.comparacoes
+         << setw(25) << estQuickSort.movimentacoes
+         << setw(25) << estQuickSort.tempoExecucao 
+         << endl;
+    
+    cout << setw(25) << "Heap Sort"
+         << setw(25) << estHeapSort.comparacoes
+         << setw(25) << estHeapSort.movimentacoes
+         << setw(25) << estHeapSort.tempoExecucao 
+         << endl;
+    
+    cout << setfill('-') << setw(100) << "" << endl;
+
+    system("pause");
 }
 
 void printDados(vector<int> listaDados) {
