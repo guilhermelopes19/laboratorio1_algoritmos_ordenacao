@@ -92,7 +92,11 @@ void menuSelectionSort(vector<int> listaDados) {
     system("cls");
     cout << "--- Selection Sort ---\n";
 
+    cout << "\r[Aguarde, executando algoritmo...]" << flush;
+
     Ordenacao::selectionSort(listaDados, estSelectionSort);
+
+    cout << "\r";
 
     printDados(listaDados);
     printEstatisticas(estSelectionSort);
@@ -106,7 +110,11 @@ void menuInsertionSort(vector<int> listaDados) {
     system("cls");
     cout << "--- Insertion Sort ---\n";
 
+    cout << "\r[Aguarde, executando algoritmo...]" << flush;
+
     Ordenacao::insertionSort(listaDados, estInsertionSort);
+
+    cout << "\r";
 
     printDados(listaDados);
     printEstatisticas(estInsertionSort);
@@ -120,7 +128,11 @@ void menuShellSort(vector<int> listaDados) {
     system("cls");
     cout << "--- Shell Sort ---\n";
 
+    cout << "\r[Aguarde, executando algoritmo...]" << flush;
+
     Ordenacao::shellSort(listaDados, estShellSort);
+
+    cout << "\r";
 
     printDados(listaDados);
     printEstatisticas(estShellSort);
@@ -134,7 +146,11 @@ void menuQuickSort(vector<int> listaDados) {
     system("cls");
     cout << "--- Quick Sort ---\n";
 
+    cout << "\r[Aguarde, executando algoritmo...]" << flush;
+
     Ordenacao::quickSort(listaDados, estQuickSort);
+
+    cout << "\r";
 
     printDados(listaDados);
     printEstatisticas(estQuickSort);
@@ -148,7 +164,11 @@ void menuHeapSort(vector<int> listaDados) {
     system("cls");
     cout << "--- Heap Sort ---\n";
 
+    cout << "\r[Aguarde, executando algoritmo...]" << flush;
+
     Ordenacao::heapSort(listaDados, estHeapSort);
+
+    cout << "\r";   
 
     printDados(listaDados);
     printEstatisticas(estHeapSort);
@@ -162,12 +182,6 @@ void menuExecutarComparar(vector<int> listaDados) {
     Estatisticas estShellSort;
     Estatisticas estQuickSort;
     Estatisticas estHeapSort;
-
-    Ordenacao::selectionSort(listaDados, estSelectionSort);
-    Ordenacao::insertionSort(listaDados, estInsertionSort);
-    Ordenacao::shellSort(listaDados, estShellSort);
-    Ordenacao::quickSort(listaDados, estQuickSort);
-    Ordenacao::heapSort(listaDados, estHeapSort);
 
     system("cls");
 
@@ -187,31 +201,47 @@ void menuExecutarComparar(vector<int> listaDados) {
 
     cout << setfill(' ');
 
-    cout << setw(25) << "Selection Sort"
+
+    cout << "\r[Aguarde, executando Selection Sort...]" << flush;
+    Ordenacao::selectionSort(listaDados, estSelectionSort);
+    cout << "\r"
+         << setw(25) << "Selection Sort"
          << setw(25) << estSelectionSort.comparacoes
          << setw(25) << estSelectionSort.movimentacoes
          << setw(25) << estSelectionSort.tempoExecucao 
          << endl;
 
-    cout << setw(25) << "Insertion Sort"
+    cout << "\r[Aguarde, executando Insertion Shell...]" << flush;
+    Ordenacao::insertionSort(listaDados, estInsertionSort);
+    cout << "\r"
+         << setw(25) << "Insertion Sort"
          << setw(25) << estInsertionSort.comparacoes
          << setw(25) << estInsertionSort.movimentacoes
          << setw(25) << estInsertionSort.tempoExecucao 
          << endl;
 
-    cout << setw(25) << "Shell Sort"
+    cout << "\r[Aguarde, executando Shell Sort...]" << flush;
+    Ordenacao::shellSort(listaDados, estShellSort);
+    cout << "\r"
+         << setw(25) << "Shell Sort"
          << setw(25) << estShellSort.comparacoes
          << setw(25) << estShellSort.movimentacoes
          << setw(25) << estShellSort.tempoExecucao 
          << endl;
 
-    cout << setw(25) << "Quick Sort"
+    cout << "\r[Aguarde, executando Quick Sort...]" << flush;
+    Ordenacao::quickSort(listaDados, estQuickSort);
+    cout << "\r"
+         << setw(25) << "Quick Sort"
          << setw(25) << estQuickSort.comparacoes
          << setw(25) << estQuickSort.movimentacoes
          << setw(25) << estQuickSort.tempoExecucao 
          << endl;
     
-    cout << setw(25) << "Heap Sort"
+    cout << "\r[Aguarde, executando Heap Sort...]" << flush;
+    Ordenacao::heapSort(listaDados, estHeapSort);
+    cout << "\r"
+         << setw(25) << "Heap Sort"
          << setw(25) << estHeapSort.comparacoes
          << setw(25) << estHeapSort.movimentacoes
          << setw(25) << estHeapSort.tempoExecucao 
