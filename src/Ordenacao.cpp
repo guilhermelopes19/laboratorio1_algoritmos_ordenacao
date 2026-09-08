@@ -1,6 +1,3 @@
-#include <iostream>
-#include <cstdlib>
-
 #include <chrono>
 
 #include "Estatisticas.h"

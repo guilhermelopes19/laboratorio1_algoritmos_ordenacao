@@ -8,6 +8,16 @@
 * Inseri a mensagem temporária `\r[Aguarde, executando algoritmo...]` combinada com `flush` em todos os menus de ordenação e na tabela de comparação para exibir o progresso do processamento.
 * Refinei a limpeza do console após a execução das ordenações, utilizando `\r` com `setw(50)` para sobrescrever completamente a mensagem de aguarde antes de imprimir os dados ordenados.
 
+### PADRONIZAÇÃO DE CÓDIGO, REFATORAÇÃO E LIMPEZA DE INTERFACE - BRUNO
+* Em main.cpp: reorganizei o arquivo principal com foco na padronização visual da interface e na correção das mensagens exibidas. Atualizei a identificação da professora responsável e apliquei correções ortográficas e de acentuação nos textos do sistema. Além disso, os blocos de navegação e exibição foram reformatados para garantir espaçamentos consistentes no console, eliminando observações operacionais e registros temporários.
+* Em GerarDados.cpp: realizei a limpeza das rotinas de geração de dados através da remoção de instruções redundantes e variáveis não utilizadas. O espaçamento entre a inicialização das estruturas e os laços de repetição foi ajustado para otimizar a legibilidade e manter a consistência visual nos métodos de criação de vetores.
+* Em menus.cpp: Refatorei as telas de navegação e das rotinas de exibição para proporcionar maior clareza visual ao usuário. Foram removidos comentários descritivos sobre tratamentos auxiliares e validações de entrada, além de alinhar a estrutura de blocos condicionais e os intervalos de impressão dos dados.
+* Em Ordenacao.cpp: Realizei a padronização completa das rotinas de ordenação, aplicando um estilo sintático uniforme para funções, laços e estruturas condicionais em todos os algoritmos. Eliminaram-se anotações temporárias de desenvolvimento, explicações históricas sobre adaptações anteriores e trechos antigos mantidos no arquivo.
+* Em Estatisticas.h: Fiz um ajuste de estilo no cabeçalho de estatísticas para adequar o alinhamento da estrutura às diretrizes de formatação do projeto.
+* Em GerarDados.h: realizei a adequação do cabeçalho do gerador de dados, organizando a disposição da classe e a indentação de seus membros internos.
+* Em menus.h: Revisei o arquivo de cabeçalho dos menus, confirmando sua integridade estrutural e ausência de pendências.
+* Em Ordenacao.h: Fiz a reestruturação do cabeçalho da classe de ordenação, padronizando a organização de seus membros, removendo observações desnecessárias e ajustando a terminologia técnica empregada nos comentários.
+
 ## 06/09/2026
 
 ### ATUALIZAÇÃO E INTEGRAÇÃO DAS BRANCHES — DIMITRIUS
@@ -171,4 +181,3 @@
 * Para vetores ordenados, foi observado nos testes pequenos que o Insertion Sort executou menos comparações e movimentações do que em vetores inversos, comportamento que será analisado posteriormente durante a etapa experimental do trabalho.
 * Também foi verificado que Selection Sort mantém a mesma quantidade de comparações para vetores de mesmo tamanho, independentemente da organização inicial, conforme esperado para a implementação adotada.
 * Esses testes foram utilizados apenas para validação funcional do sistema. Os valores obtidos nesta etapa ainda não foram considerados resultados experimentais definitivos do relatório, que serão coletados posteriormente de forma organizada para os diferentes tamanhos e estados iniciais dos vetores.
-
