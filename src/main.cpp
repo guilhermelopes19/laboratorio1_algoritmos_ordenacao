@@ -1,7 +1,7 @@
 // LABORATÓRIO 1 —  ALGORITMOS DE ORDENAÇÃO
 // Disciplina: Estrutura de Dados 2
 // Professora: Maria Inês
-// Alunos: Bruno Barreto, Dimitrius Khouri e Guilherme Lopes 
+// Alunos: Bruno Barreto, Dimitrius Khouri e Guilherme Lopes
 
 
 #include <iostream>
